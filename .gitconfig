@@ -1,0 +1,10 @@
+[commit]
+	gpgsign = true
+[alias]
+	s = status
+[user]
+	signingkey = 879C96BCBDAA8CF94046E6CC80AEF83FA91D6A9D
+	email = takechi101010@gmail.com
+	name = take-cheeze
+[core]
+	excludesfile = ~/.gitignore
