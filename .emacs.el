@@ -93,7 +93,7 @@
 (when (and battery-status-function
            (not (string-match-p
                  "N/A"
-p                 (battery-format
+                 (battery-format
                   "%B"
                   (funcall battery-status-function)))))
   (display-battery-mode 1))
