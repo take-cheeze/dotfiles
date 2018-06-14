@@ -9,14 +9,6 @@
 
 (defmacro append-to-list (to lst) `(setq-default ,to (append ,lst , to)))
 
-(setq-default tab-width 8
-              default-tab-width 8
-              c-basic-offset 2
-              c-tab-offset tab-width
-              c-auto-newline nil
-              c-tab-always-indent t
-              indent-tabs-mode nil
-              rust-indent-offset 2)
 (set-default-coding-systems 'utf-8)
 (set-language-environment "Japanese")
 (set-terminal-coding-system 'utf-8)
@@ -30,8 +22,6 @@
   (interactive)
   (save-excursion
     (indent-region (point-min) (point-max) nil)))
-(setq-default web-mode-markup-indent-offset 2)
-;; (setq-default display-buffer-function 'popwin:display-buffer)
 
 (defun my-c-mode-common-hook ()
   (c-set-offset 'case-label 0)
@@ -42,29 +32,10 @@
 (savehist-mode t)
 
 ;; whitespace setting
-(setq-default show-trailing-whitespace t)
-(setq-default whitespace-style '(tabs tab-mark spaces space-mark))
-(setq-default whitespace-space-regexp "\\([\x3000\t]+\\)")
-(setq-default whitespace-display-mappings
-              '((space-mark ?\x3000 [?\xBB ?\x20])
-                (tab-mark   ?\t     [?\xBB ?\t])
-                ))
 (global-whitespace-mode t)
-
-;; window system setting
-(cond (window-system
-       (tool-bar-mode -1)
-       (scroll-bar-mode -1)
-       (setq-default default-frame-alist
-                     '((width . 200) (height . 148)
-                       (top . 0) (left . 0)))
-       (set-default-font "IPAGothic-9:spacing=0")))
 
 ;; transient-mark-mode
 (transient-mark-mode t)
-
-;; inhibit-startup-screen
-(setq-default inhibit-startup-screen t)
 
 ;; emacs server
 (server-start)
@@ -72,19 +43,13 @@
 ;; don't remind me with down/upcase-region
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'erase-buffer 'disabled nil)
 
 ;; mouse
 (require 'mouse)
 (xterm-mouse-mode t)
-(setq-default x-select-enable-clipboard t)
 (require 'mwheel)
 (mouse-wheel-mode t)
-(setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-
-;; scroll
-(setq-default scroll-conservatively 1)
-(setq-default scroll-step 1)
-(setq-default next-screen-context-lines 3)
 
 ;; mode line
 (column-number-mode t)
@@ -123,7 +88,6 @@
   (if compile-history
       (setq compile-command '(first compile-history)))
   (recompile))
-(setq-default compilation-scroll-output t)
 (global-set-key (kbd "C-c c") 'run-last-compile)
 (global-set-key (kbd "C-c n") 'next-error)
 (global-set-key (kbd "C-c p") 'previous-error)
@@ -155,15 +119,6 @@
 (add-hook 'term-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'comint-output-filter-functions #'comint-truncate-buffer)
 
-(setq-default read-file-name-completion-ignore-case nil
-              read-buffer-completion-ignore-case nil)
-
-;; visible bell
-(setq-default visible-bell t)
-
-(setq-default truncate-partial-width-windows nil)
-(setq-default truncate-lines nil)
-
 ;; window
 (defun my-next-window ()
   (interactive)
@@ -179,18 +134,6 @@
 (global-unset-key (kbd "C-r"))
 (global-set-key (kbd "C-r") 'replace-regexp)
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-
-;; ruby
-(setq-default ruby-indent-level 2 ruby-indent-tabs-mode nil)
-(append-to-list auto-mode-alist '(("Rakefile" . ruby-mode)
-                                  ("\\.rake$" . ruby-mode)
-                                  ("\\.gembox$" . ruby-mode)
-                                  ("Gemfile" . ruby-mode)))
-(add-hook 'ruby-mode-hook
-          '(lambda()
-             (when (>= emacs-major-version 24)
-               (set (make-local-variable 'electric-pair-mode) nil))
-             (ruby-electric-mode t)))
 
 ;; recentf
 (require 'recentf)
@@ -214,7 +157,6 @@
 
 ;; eww
 (require 'eww)
-(setq eww-search-prefix "https://www.google.com/search?hl=en&q=")
 (defun my-eww-mode-hook ()
   (linum-mode 0)
   (setq show-trailing-whitespace nil))
@@ -241,29 +183,61 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(c-basic-offset 2)
+ '(c-tab-always-indent t)
  '(coffee-tab-width 2)
+     '(company-backends
+           (quote
+            (company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
+                          (company-dabbrev-code company-gtags company-etags company-keywords)
+                          company-oddmuse company-dabbrev company-abbrev)))
  '(company-idle-delay 0.2)
+ '(compilation-scroll-output t)
+ '(eww-search-prefix "https://www.google.com/search?hl=en&q=")
+ '(indent-tabs-mode nil)
+ '(inhibit-startup-screen t)
  '(js-indent-level 2)
+ '(magit-auto-revert-mode nil)
  '(magit-diff-section-arguments (quote ("--no-ext-diff")))
- '(package-selected-packages
-   (quote
-    (twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode workgroups2 wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file nlinum multi-term minibuf-isearch milkode markdown-mode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flymake-ruby flymake-lua flymake-coffee flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert ac-math ac-inf-ruby ac-etags ac-emmet))))
+ '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1))))
+ '(next-screen-context-lines 3)
+     '(package-selected-packages
+           (quote
+            (twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode workgroups2 wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file nlinum multi-term minibuf-isearch milkode markdown-mode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flymake-ruby flymake-lua flymake-coffee flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert ac-math ac-inf-ruby ac-etags ac-emmet)))
+ '(read-buffer-completion-ignore-case nil)
+ '(read-file-name-completion-ignore-case nil)
+ '(ruby-indent-level 2)
+ '(ruby-indent-tabs-mode nil)
+ '(ruby-insert-encoding-magic-comment nil)
+ '(rust-indent-offset 2)
+ '(scroll-conservatively 1)
+ '(scroll-step 1)
+ '(show-trailing-whitespace t)
+ '(tab-width 8)
+ '(term-scroll-show-maximum-output t)
+ '(term-scroll-to-bottom-on-output t)
+ '(truncate-lines nil)
+ '(truncate-partial-width-windows nil)
+ '(vc-follow-symlinks nil)
+ '(visible-bell t)
+ '(web-mode-markup-indent-offset 2)
+ '(whitespace-display-mappings (quote ((space-mark 12288 [187 32]) (tab-mark 9 [187 9]))))
+ '(whitespace-space-regexp "\\([　	]+\\)")
+ '(whitespace-style (quote (tabs tab-mark spaces space-mark)))
+ '(x-select-enable-clipboard t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(put 'erase-buffer 'disabled nil)
 
-(dolist (elem package-selected-packages) (package-install elem))
+;; (dolist (elem package-selected-packages) (package-install elem))
 
 (use-package multi-term
-  :init
+  :config
   ;; terminal setting
   (require 'multi-term)
-  (setq-default term-scroll-to-bottom-on-output t)
-  (setq-default term-scroll-show-maximum-output t)
   (append-to-list term-bind-key-alist
                   '(("M-<right>" . term-send-forward-word)
                     ("C-<right>" . term-send-forward-word)
@@ -298,56 +272,67 @@
   )
 
 (use-package dtrt-indent
-  :init
+  :config
   (dtrt-indent-mode t))
 
 ;; git-gutter
 (use-package git-gutter
-  :init
+  :config
   (git-gutter:linum-setup)
   (global-git-gutter-mode t))
 
 ;; pbcopy
 (use-package pbcopy
-  :init
+  :config
   (turn-on-pbcopy))
 
 (use-package desktop
-  :init
+  :config
   (desktop-save-mode t))
 (use-package workgroups2
-  :init
+  :config
   (workgroups-mode t))
 
 ;; smart-cursor-color
 (use-package smart-cursor-color
-  :init
+  :config
   (global-hl-line-mode t)
   (smart-cursor-color-mode t))
 
 ;; company
 (use-package company
-  :init
+  :config
   (global-company-mode t)
   (global-set-key (kbd "C-TAB") #'company-complete))
 
 ;; magit
 (use-package magit
-  :init
-  (global-set-key (kbd "C-x g") 'magit-status)
-  (setq magit-auto-revert-mode nil))
+  :config
+  (global-set-key (kbd "C-x g") 'magit-status))
 
 (use-package flymake-ruby
-  :init
-  (add-hook 'ruby-mode-hook 'flymake-ruby-load)
-  (setq-default ruby-insert-encoding-magic-comment nil))
+  :requires ruby-mode
+  :config
+  (add-hook 'ruby-mode-hook 'flymake-ruby-load))
 
 ;; editorconfig
 (use-package editorconfig
-  :init
-  (editorconfig-mode 1))
+  :config
+   (editorconfig-mode 1))
 
 ;; flycheck
 (use-package flycheck
-  :init
+  :config
   (global-flycheck-mode t))
+
+(use-package ruby-mode
+  :config
+  (append-to-list auto-mode-alist '(("Rakefile" . ruby-mode)
+                                    ("\\.rake$" . ruby-mode)
+                                    ("\\.gembox$" . ruby-mode)
+                                    ("Gemfile" . ruby-mode)))
+  (add-hook 'ruby-mode-hook
+       '(lambda()
+             (when (>= emacs-major-version 24)
+                  (set (make-local-variable 'electric-pair-mode) nil))
+             (ruby-electric-mode t))))
