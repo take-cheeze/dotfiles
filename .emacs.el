@@ -19,11 +19,13 @@
 
 ;; indent setting
 (defun indent-buffer ()
+  "indent whole buffer"
   (interactive)
   (save-excursion
     (indent-region (point-min) (point-max) nil)))
 
 (defun my-c-mode-common-hook ()
+  "customize indents on c-mode"
   (c-set-offset 'case-label 0)
   (c-set-offset 'inextern-lang 0))
 (add-hook 'c-mode-common-hook #'my-c-mode-common-hook)
@@ -84,8 +86,9 @@
 
 ;; compilation buffer
 (defun run-last-compile ()
+  "run compilation with last command"
   (interactive)
-  (if compile-history
+  (when compile-history
       (setq compile-command '(first compile-history)))
   (recompile))
 (global-set-key (kbd "C-c c") 'run-last-compile)
@@ -94,12 +97,14 @@
 (require 'ansi-color)
 (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
 (defun my-compilation-filter-hook ()
+  "apply ansi colors to compilation buffer"
   (ansi-color-apply-on-region (point-min) (point-max)))
 (add-hook 'compilation-filter-hook #'my-compilation-filter-hook)
 
 ;; eshell
 (require 'eshell)
 (defun my-eshell-prompt ()
+  "custom eshell prompt"
   (concat
    (user-login-name) "@" (system-name) " "
    "(" (vc-mode-line (eshell/pwd)) ") "
@@ -121,6 +126,7 @@
 
 ;; window
 (defun my-next-window ()
+  "search next window"
   (interactive)
   (when (one-window-p) (split-window-horizontally))
   (other-window 1))
@@ -232,7 +238,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; (dolist (elem package-selected-packages) (package-install elem))
+(dolist (elem package-selected-packages) (package-install elem))
 
 (use-package multi-term
   :config
