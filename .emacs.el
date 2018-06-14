@@ -288,13 +288,11 @@
   :config
   (dtrt-indent-mode t))
 
-;; git-gutter
 (use-package git-gutter
   :config
   (git-gutter:linum-setup)
   (global-git-gutter-mode t))
 
-;; pbcopy
 (use-package pbcopy
   :config
   (turn-on-pbcopy))
@@ -302,33 +300,29 @@
 (use-package desktop
   :config
   (desktop-save-mode t))
+
 (use-package workgroups2
   :config
   (workgroups-mode t))
 
-;; smart-cursor-color
 (use-package smart-cursor-color
   :config
   (global-hl-line-mode t)
   (smart-cursor-color-mode t))
 
-;; company
 (use-package company
   :config
   (global-company-mode t)
   (global-set-key (kbd "C-TAB") #'company-complete))
 
-;; magit
 (use-package magit
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
 
-;; editorconfig
 (use-package editorconfig
   :config
    (editorconfig-mode 1))
 
-;; flycheck
 (use-package flycheck
   :config
   (global-flycheck-mode t))
