@@ -339,6 +339,10 @@
                   (set (make-local-variable 'electric-pair-mode) nil))
              (ruby-electric-mode t))))
 
+(use-package elm-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.elm\.erb$" . elm-mode)))
+
 (use-package company-nginx
     :ensure t
     :config
