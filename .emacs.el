@@ -170,6 +170,7 @@
   (linum-mode 0)
   (setq show-trailing-whitespace nil))
 (add-hook 'eww-mode-hook #'my-eww-mode-hook)
+(add-hook 'eww-bookmark-mode-hook #'my-eww-mode-hook)
 (defun eww-new ()
   "Open new eww buffer."
   (interactive)
@@ -196,11 +197,13 @@
  '(c-basic-offset 2)
  '(c-tab-always-indent t)
  '(coffee-tab-width 2)
-     '(company-backends
-           (quote
-            (company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
-                          (company-dabbrev-code company-gtags company-etags company-keywords)
-                          company-oddmuse company-dabbrev company-abbrev)))
+ '(company-backends
+   (quote
+    (company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
+                  (company-dabbrev-code company-gtags company-etags company-keywords)
+                  company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-erlang company-go company-lua company-math-symbols-latex company-math-symbols-unicode company-ngram-backend company-ac-php-backend
+                  (company-shell company-shell-env company-fish-shell)
+                  company-web-html company-web-jade company-web-slim company-terraform)))
  '(company-idle-delay 0.2)
  '(compilation-scroll-output t)
  '(eww-search-prefix "https://www.google.com/search?hl=en&q=")
@@ -211,9 +214,9 @@
  '(magit-diff-section-arguments (quote ("--no-ext-diff")))
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1))))
  '(next-screen-context-lines 3)
-     '(package-selected-packages
-           (quote
-            (twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode workgroups2 wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file nlinum multi-term minibuf-isearch milkode markdown-mode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flymake-ruby flymake-lua flymake-coffee flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert ac-math ac-inf-ruby ac-etags ac-emmet)))
+ '(package-selected-packages
+   (quote
+    (twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode workgroups2 wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file nlinum multi-term minibuf-isearch milkode markdown-mode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-erlang company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-ngram company-php company-quickhelp company-shell company-terraform company-web)))
  '(read-buffer-completion-ignore-case nil)
  '(read-file-name-completion-ignore-case nil)
  '(ruby-indent-level 2)
@@ -222,19 +225,19 @@
  '(rust-indent-offset 2)
  '(scroll-conservatively 1)
  '(scroll-step 1)
+ '(select-enable-clipboard t)
  '(show-trailing-whitespace t)
  '(tab-width 8)
  '(term-scroll-show-maximum-output t)
  '(term-scroll-to-bottom-on-output t)
  '(truncate-lines nil)
  '(truncate-partial-width-windows nil)
- '(vc-follow-symlinks nil)
+ '(vc-follow-symlinks t)
  '(visible-bell t)
  '(web-mode-markup-indent-offset 2)
  '(whitespace-display-mappings (quote ((space-mark 12288 [187 32]) (tab-mark 9 [187 9]))))
  '(whitespace-space-regexp "\\([　	]+\\)")
- '(whitespace-style (quote (tabs tab-mark spaces space-mark)))
- '(x-select-enable-clipboard t))
+ '(whitespace-style (quote (tabs tab-mark spaces space-mark))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -242,7 +245,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-(dolist (elem package-selected-packages) (package-install elem))
+(package-install-selected-packages)
 
 (use-package multi-term
   :config
@@ -320,11 +323,6 @@
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
 
-(use-package flymake-ruby
-  :requires ruby-mode
-  :config
-  (add-hook 'ruby-mode-hook 'flymake-ruby-load))
-
 ;; editorconfig
 (use-package editorconfig
   :config
@@ -346,3 +344,9 @@
              (when (>= emacs-major-version 24)
                   (set (make-local-variable 'electric-pair-mode) nil))
              (ruby-electric-mode t))))
+
+(use-package company-nginx
+    :ensure t
+    :config
+    (eval-after-load 'nginx-mode
+      '(add-hook 'nginx-mode-hook #'company-nginx-keywords)))
