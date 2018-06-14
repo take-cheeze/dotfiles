@@ -7,7 +7,8 @@
 (package-initialize)
 (package-refresh-contents)
 
-(defmacro append-to-list (to lst) `(setq-default ,to (append ,lst , to)))
+(defmacro append-to-list (to lst)
+  `(setq-default ,to (append ,lst , to)))
 
 (set-default-coding-systems 'utf-8)
 (set-language-environment "Japanese")
@@ -19,13 +20,13 @@
 
 ;; indent setting
 (defun indent-buffer ()
-  "indent whole buffer"
+  "Indent whole buffer."
   (interactive)
   (save-excursion
     (indent-region (point-min) (point-max) nil)))
 
 (defun my-c-mode-common-hook ()
-  "customize indents on c-mode"
+  "Customize indent on C mode."
   (c-set-offset 'case-label 0)
   (c-set-offset 'inextern-lang 0))
 (add-hook 'c-mode-common-hook #'my-c-mode-common-hook)
@@ -86,7 +87,7 @@
 
 ;; compilation buffer
 (defun run-last-compile ()
-  "run compilation with last command"
+  "Run compilation with last command."
   (interactive)
   (when compile-history
       (setq compile-command '(first compile-history)))
@@ -97,14 +98,14 @@
 (require 'ansi-color)
 (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
 (defun my-compilation-filter-hook ()
-  "apply ansi colors to compilation buffer"
+  "Apply ansi colors to compilation buffer."
   (ansi-color-apply-on-region (point-min) (point-max)))
 (add-hook 'compilation-filter-hook #'my-compilation-filter-hook)
 
 ;; eshell
 (require 'eshell)
 (defun my-eshell-prompt ()
-  "custom eshell prompt"
+  "Custom eshell prompt."
   (concat
    (user-login-name) "@" (system-name) " "
    "(" (vc-mode-line (eshell/pwd)) ") "
@@ -126,7 +127,7 @@
 
 ;; window
 (defun my-next-window ()
-  "search next window"
+  "Search next window."
   (interactive)
   (when (one-window-p) (split-window-horizontally))
   (other-window 1))
@@ -154,6 +155,7 @@
 (require 'linum)
 (global-linum-mode t)
 (defun my-linum-disable-hook ()
+  "Disable linum mode in specific modes."
   (linum-mode 0))
 (dolist (h '(eshell-mode-hook
              message-mode magit-status-mode-hook magit-mode-hook
@@ -164,10 +166,12 @@
 ;; eww
 (require 'eww)
 (defun my-eww-mode-hook ()
+  "Workaround of eww views."
   (linum-mode 0)
   (setq show-trailing-whitespace nil))
 (add-hook 'eww-mode-hook #'my-eww-mode-hook)
 (defun eww-new ()
+  "Open new eww buffer."
   (interactive)
   (let ((url (read-from-minibuffer "Enter URL or keywords: ")))
     (switch-to-buffer (generate-new-buffer "*eww*"))
