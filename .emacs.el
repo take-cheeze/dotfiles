@@ -207,6 +207,7 @@
  '(company-idle-delay 0.2)
  '(compilation-scroll-output t)
  '(eww-search-prefix "https://www.google.com/search?hl=en&q=")
+ '(flycheck-check-syntax-automatically (quote (save mode-enabled)))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(js-indent-level 2)
