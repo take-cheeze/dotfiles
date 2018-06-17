@@ -162,6 +162,9 @@
              erc-mode-hook term-mode-hook compilation-mode-hook Man-mode-hook
              eww-mode-hook))
   (add-hook h #'my-linum-disable-hook))
+(set-face-foreground 'linum "cyan")
+
+(global-eldoc-mode nil)
 
 ;; eww
 (require 'eww)
