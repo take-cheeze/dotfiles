@@ -190,7 +190,7 @@
 (add-to-list 'auto-mode-alist '("\\.feature\\'" . yaml-mode))
 
 ;; vc-mode
-(global-set-key (kbd "C-c g g") #'vc-git-grep))
+(global-set-key (kbd "C-c g g") #'vc-git-grep)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
