@@ -113,9 +113,11 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$GOPATH/bin:/usr/lib/ccache:$PATH"
+export PATH="$HOME/.rbenv/bin:$GOPATH/bin:/usr/lib/ccache:$PATH"
 
 alias be='bundle exec'
 alias dc='docker-compose'
 alias d='docker'
 alias emacs='emacs -nw'
+
+which rbenv > /dev/null && eval "$(rbenv init -)"
