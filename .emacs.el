@@ -18,6 +18,18 @@
 (setq-default default-buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
+;; el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get-bundle git-modeline
+  (setq-default git-state-modeline-decoration 'git-state-decoration-colored-letter))
+
 ;; indent setting
 (defun indent-buffer ()
   "Indent whole buffer."
@@ -66,7 +78,9 @@
                   (funcall battery-status-function)))))
   (display-battery-mode 1))
 (line-number-mode t)
-(setq-default git-state-modeline-decoration 'git-state-decoration-colored-letter)
+
+;; window configurations
+(desktop-save-mode 1)
 
 ;; menu bar
 (menu-bar-mode 0)
@@ -164,7 +178,7 @@
   (add-hook h #'my-linum-disable-hook))
 (set-face-foreground 'linum "cyan")
 
-(global-eldoc-mode nil)
+(global-eldoc-mode -1)
 
 ;; eww
 (require 'eww)
@@ -204,11 +218,12 @@
    (quote
     (company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
                   (company-dabbrev-code company-gtags company-etags company-keywords)
-                  company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-erlang company-go company-lua company-math-symbols-latex company-math-symbols-unicode company-ngram-backend company-ac-php-backend
+                  company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-erlang company-go company-lua company-math-symbols-latex company-math-symbols-unicode company-ngram-backend
                   (company-shell company-shell-env company-fish-shell)
                   company-web-html company-web-jade company-web-slim company-terraform)))
  '(company-idle-delay 0.2)
  '(compilation-scroll-output t)
+ '(desktop-restore-frames t)
  '(eww-search-prefix "https://www.google.com/search?hl=en&q=")
  '(flycheck-check-syntax-automatically (quote (save mode-enabled)))
  '(indent-tabs-mode nil)
@@ -220,7 +235,7 @@
  '(next-screen-context-lines 3)
  '(package-selected-packages
    (quote
-    (flycheck-elm twittering-mode company cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode workgroups2 wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file nlinum multi-term minibuf-isearch milkode markdown-mode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-erlang company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-ngram company-quickhelp company-shell company-terraform company-web)))
+    (flycheck-elm twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file nlinum multi-term minibuf-isearch milkode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-erlang company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-ngram company-quickhelp company-shell company-terraform company-web)))
  '(read-buffer-completion-ignore-case nil)
  '(read-file-name-completion-ignore-case nil)
  '(ruby-indent-level 2)
@@ -309,14 +324,6 @@
   :config
   (turn-on-pbcopy))
 
-(use-package desktop
-  :config
-  (desktop-save-mode t))
-
-(use-package workgroups2
-  :config
-  (workgroups-mode t))
-
 (use-package smart-cursor-color
   :config
   (global-hl-line-mode t)
@@ -356,7 +363,7 @@
   (add-to-list 'auto-mode-alist '("\\.elm\.erb$" . elm-mode)))
 
 (use-package company-nginx
-    :ensure t
-    :config
-    (eval-after-load 'nginx-mode
-      '(add-hook 'nginx-mode-hook #'company-nginx-keywords)))
+  :ensure t
+  :config
+  (eval-after-load 'nginx-mode
+    '(add-hook 'nginx-mode-hook #'company-nginx-keywords)))
