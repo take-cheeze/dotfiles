@@ -114,3 +114,8 @@ fi
 
 export GOPATH="$HOME/dev/go"
 export PATH="$GOPATH/bin:/usr/lib/ccache:$PATH"
+
+alias be='bundle exec'
+alias dc='docker-compose'
+alias d='docker'
+alias emacs='emacs -nw'
