@@ -3,6 +3,7 @@
 [alias]
 	s = status
         d = diff
+	co = checkout
 [user]
 	signingkey = 879C96BCBDAA8CF94046E6CC80AEF83FA91D6A9D
 	email = takechi101010@gmail.com
