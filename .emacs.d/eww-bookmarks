@@ -1,5 +1,8 @@
 ;; Auto-generated file; don't edit
-((:url "https://guide.elm-lang.org/interop/javascript.html" :title "JavaScript · An Introduction to Elm" :time "Fri Jun 15 09:21:29 2018")
+((:url "https://git-scm.com/docs" :title "Git - Reference" :time "Tue Jun 19 06:37:32 2018")
+ (:url "http://docs.libuv.org/en/v1.x/api.html" :title "API documentation — libuv documentation" :time "Tue Jun 19 06:36:50 2018")
+ (:url "http://en.cppreference.com/w/cpp/header" :title "C++ Standard Library header files - cppreference.com" :time "Tue Jun 19 06:30:56 2018")
+ (:url "https://guide.elm-lang.org/interop/javascript.html" :title "JavaScript · An Introduction to Elm" :time "Fri Jun 15 09:21:29 2018")
  (:url "https://github.com/hayamiz/twittering-mode" :title "GitHub - hayamiz/twittering-mode: An Emacs major mode for Twitter" :time "Fri Jun 15 09:19:08 2018")
  (:url "https://spacetelescope.github.io/understanding-json-schema/index.html" :title "Understanding JSON Schema — Understanding JSON Schema 1.0 documentation" :time "Fri Jun 15 09:12:56 2018")
  (:url "https://developer.mozilla.org/en-US/" :title "MDN Web Docs" :time "Thu Jun 14 05:50:59 2018")
