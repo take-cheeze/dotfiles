@@ -1,3 +1,12 @@
+;; set encoding
+(set-language-environment "Japanese")
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
 ;; Added by Package.el.  This must come before configurations of
 ;; Installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -9,14 +18,6 @@
 
 (defmacro append-to-list (to lst)
   `(setq-default ,to (append ,lst , to)))
-
-(set-default-coding-systems 'utf-8)
-(set-language-environment "Japanese")
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(setq-default default-buffer-file-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
 
 ;; el-get
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -165,26 +166,10 @@
 (electric-pair-mode t)
 (electric-indent-mode t)
 
-;; linum-mode
-(require 'linum)
-(global-linum-mode t)
-(defun my-linum-disable-hook ()
-  "Disable linum mode in specific modes."
-  (linum-mode 0))
-(dolist (h '(eshell-mode-hook
-             message-mode magit-status-mode-hook magit-mode-hook
-             erc-mode-hook term-mode-hook compilation-mode-hook Man-mode-hook
-             eww-mode-hook))
-  (add-hook h #'my-linum-disable-hook))
-(set-face-foreground 'linum "cyan")
-
-(global-eldoc-mode -1)
-
 ;; eww
 (require 'eww)
 (defun my-eww-mode-hook ()
   "Workaround of eww views."
-  (linum-mode 0)
   (setq show-trailing-whitespace nil))
 (add-hook 'eww-mode-hook #'my-eww-mode-hook)
 (add-hook 'eww-bookmark-mode-hook #'my-eww-mode-hook)
@@ -235,7 +220,7 @@
  '(next-screen-context-lines 3)
  '(package-selected-packages
    (quote
-    (use-package flycheck-elm twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file nlinum multi-term minibuf-isearch milkode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-erlang company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-ngram company-quickhelp company-shell company-terraform company-web)))
+    (use-package flycheck-elm twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file multi-term minibuf-isearch milkode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-erlang company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-ngram company-quickhelp company-shell company-terraform company-web)))
  '(read-buffer-completion-ignore-case nil)
  '(read-file-name-completion-ignore-case nil)
  '(ruby-indent-level 2)
@@ -317,7 +302,33 @@
 
 (use-package git-gutter
   :config
-  (git-gutter:linum-setup)
+  ;; line numbers
+  (if (version< emacs-version "26.0")
+      (progn
+        (global-linum-mode t)
+        (defun my-linum-disable-hook ()
+          "Disable line number display in specific modes."
+          (linum-mode 0))
+        (dolist (h '(eshell-mode-hook
+                     message-mode magit-status-mode-hook magit-mode-hook
+                     erc-mode-hook term-mode-hook compilation-mode-hook Man-mode-hook
+                     eww-mode-hook eww-bookmark-mode custom-mode))
+          (add-hook h #'my-linum-disable-hook))
+        (set-face-foreground 'linum "cyan")
+        (git-gutter:linum-setup))
+    (progn
+      (global-display-line-numbers-mode t)
+      (defun my-display-line-numbers-disable-hook ()
+        "Disable line number display in specific modes."
+        (display-line-numbers-mode 0))
+      (dolist (h '(eshell-mode-hook
+                   message-mode magit-status-mode-hook magit-mode-hook
+                   erc-mode-hook term-mode-hook compilation-mode-hook Man-mode-hook
+                   eww-mode-hook eww-bookmark-mode custom-mode))
+        (add-hook h #'my-display-line-numbers-disable-hook))
+      (set-face-foreground 'line-number "cyan")
+
+      (global-eldoc-mode -1)))
   (global-git-gutter-mode t))
 
 (use-package pbcopy
