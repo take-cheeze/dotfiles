@@ -312,7 +312,7 @@
         (dolist (h '(eshell-mode-hook
                      message-mode magit-status-mode-hook magit-mode-hook
                      erc-mode-hook term-mode-hook compilation-mode-hook Man-mode-hook
-                     eww-mode-hook eww-bookmark-mode custom-mode))
+                     eww-mode-hook eww-bookmark-mode-hook))
           (add-hook h #'my-linum-disable-hook))
         (set-face-foreground 'linum "cyan")
         (git-gutter:linum-setup))
@@ -324,7 +324,7 @@
       (dolist (h '(eshell-mode-hook
                    message-mode magit-status-mode-hook magit-mode-hook
                    erc-mode-hook term-mode-hook compilation-mode-hook Man-mode-hook
-                   eww-mode-hook eww-bookmark-mode custom-mode))
+                   eww-mode-hook eww-bookmark-mode-hook custom-mode))
         (add-hook h #'my-display-line-numbers-disable-hook))
       (set-face-foreground 'line-number "cyan")
 
