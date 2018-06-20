@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.rbenv/bin:$GOPATH/bin:/usr/lib/ccache:$PATH"
+export PATH="$HOME/.rbenv/bin:$GOPATH/bin:/usr/lib/ccache:/usr/local/go/bin:$PATH"
 
 alias be='bundle exec'
 alias dc='docker-compose'
