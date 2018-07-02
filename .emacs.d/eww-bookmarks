@@ -1,5 +1,8 @@
 ;; Auto-generated file; don't edit
-((:url "https://godoc.org/pack.ag/amqp" :title "amqp - GoDoc" :time "Fri Jun 22 04:20:29 2018")
+((:url "https://godoc.org/github.com/eclipse/paho.mqtt.golang" :title "mqtt - GoDoc" :time "Thu Jun 28 09:05:11 2018")
+ (:url "http://goessner.net/articles/JsonPath/" :title "JSONPath - XPath for JSON" :time "Thu Jun 28 08:44:34 2018")
+ (:url "https://godoc.org/k8s.io/client-go/util/jsonpath" :title "jsonpath - GoDoc" :time "Thu Jun 28 08:44:23 2018")
+ (:url "https://godoc.org/pack.ag/amqp" :title "amqp - GoDoc" :time "Fri Jun 22 04:20:29 2018")
  (:url "https://git-scm.com/docs" :title "Git - Reference" :time "Tue Jun 19 06:37:32 2018")
  (:url "http://docs.libuv.org/en/v1.x/api.html" :title "API documentation — libuv documentation" :time "Tue Jun 19 06:36:50 2018")
  (:url "http://en.cppreference.com/w/cpp/header" :title "C++ Standard Library header files - cppreference.com" :time "Tue Jun 19 06:30:56 2018")
