@@ -296,7 +296,7 @@
 
 (use-package dtrt-indent
   :config
-  (dtrt-indent-mode t))
+  (dtrt-indent-global-mode t))
 
 (use-package git-gutter
   :config
