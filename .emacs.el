@@ -204,6 +204,10 @@
                   company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-go company-lua company-math-symbols-latex company-math-symbols-unicode
                   (company-shell company-shell-env company-fish-shell)
                   company-web-html company-web-jade company-web-slim company-terraform)))
+ '(company-dabbrev-code-modes t)
+ '(company-dabbrev-code-everywhere t)
+ '(company-dabbrev-ignore-case nil)
+ '(company-dabbrev-downcase nil)
  '(company-idle-delay 0.2)
  '(compilation-scroll-output t)
  '(desktop-restore-frames t)
