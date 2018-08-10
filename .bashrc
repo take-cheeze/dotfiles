@@ -123,5 +123,7 @@ alias emacs='emacs -nw'
 which rbenv > /dev/null && eval "$(rbenv init -)"
 
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-    ulimit -s unlimited # workaround for WSL ruby
+  if [ "$SSH_CLIENT" != "" ] ; then 
+    # ulimit -s unlimited # workaround for WSL ruby
+  fi
 fi
