@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH"
 
 alias be='bundle exec'
 alias dc='docker-compose'
@@ -127,4 +127,8 @@ if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     true
     # ulimit -s unlimited # workaround for WSL ruby
   fi
+fi
+
+if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
+    source ~/.bazel/bin/bazel-complete.bash
 fi
