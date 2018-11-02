@@ -120,7 +120,7 @@ alias dc='docker-compose'
 alias d='docker'
 alias emacs='emacs -nw'
 
-which rbenv > /dev/null && eval "$(rbenv init -)"
+which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   if [ "$SSH_CLIENT" != "" ] ; then
