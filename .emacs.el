@@ -202,12 +202,11 @@
  '(c-tab-always-indent t)
  '(coffee-tab-width 2)
  '(company-backends
-   (quote
-    (company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
+   '(company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
                   (company-dabbrev-code company-gtags company-etags company-keywords)
                   company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-go company-lua company-math-symbols-latex company-math-symbols-unicode
                   (company-shell company-shell-env company-fish-shell)
-                  company-web-html company-web-jade company-web-slim company-terraform)))
+                  company-web-html company-web-jade company-web-slim company-terraform))
  '(company-dabbrev-code-everywhere t)
  '(company-dabbrev-code-modes t)
  '(company-dabbrev-downcase nil)
@@ -215,21 +214,20 @@
  '(company-idle-delay 0.2)
  '(compilation-scroll-output t)
  '(desktop-restore-frames t)
- '(docker-compose-logs-arguments (quote ("--follow" "--tail=3")))
- '(docker-compose-up-arguments (quote ("--detach")))
+ '(docker-compose-logs-arguments '("--follow" "--tail=3"))
+ '(docker-compose-up-arguments '("--detach"))
  '(eww-search-prefix "https://www.google.com/search?hl=en&q=")
- '(flycheck-check-syntax-automatically (quote (save mode-enabled)))
- '(gofmt-args (quote ("-s")))
+ '(flycheck-check-syntax-automatically '(save mode-enabled))
+ '(gofmt-args '("-s"))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(js-indent-level 2)
  '(magit-auto-revert-mode nil)
- '(magit-diff-section-arguments (quote ("--no-ext-diff")))
- '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1))))
+ '(magit-diff-section-arguments '("--no-ext-diff"))
+ '(mouse-wheel-scroll-amount '(1 ((shift) . 1)))
  '(next-screen-context-lines 3)
  '(package-selected-packages
-   (quote
-    (protobuf-mode go-imports golint docker markdown-toc markdown-preview-eww markdown-preview-mode markdown-mode docker-compose-mode bazel-mode sql-indent logview rainbow-delimiters rubocopfmt dockerfile-mode nginx-mode use-package flycheck-elm twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file multi-term minibuf-isearch milkode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-quickhelp company-shell company-terraform company-web)))
+   '(xclip evil-visual-mark-mode protobuf-mode go-imports golint docker markdown-toc markdown-preview-eww markdown-preview-mode markdown-mode docker-compose-mode bazel-mode sql-indent logview rainbow-delimiters rubocopfmt dockerfile-mode nginx-mode use-package flycheck-elm twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools pbcopy paredit org-ac open-junk-file multi-term minibuf-isearch milkode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-quickhelp company-shell company-terraform company-web))
  '(read-buffer-completion-ignore-case nil)
  '(read-file-name-completion-ignore-case nil)
  '(ruby-indent-level 2)
@@ -248,9 +246,9 @@
  '(vc-follow-symlinks t)
  '(visible-bell t)
  '(web-mode-markup-indent-offset 2)
- '(whitespace-display-mappings (quote ((space-mark 12288 [187 32]) (tab-mark 9 [187 9]))))
+ '(whitespace-display-mappings '((space-mark 12288 [187 32]) (tab-mark 9 [187 9])))
  '(whitespace-space-regexp "\\([　	]+\\)")
- '(whitespace-style (quote (tabs tab-mark spaces space-mark))))
+ '(whitespace-style '(tabs tab-mark spaces space-mark)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
