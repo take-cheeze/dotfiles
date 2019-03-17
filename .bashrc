@@ -119,6 +119,7 @@ alias be='bundle exec'
 alias dc='docker-compose'
 alias d='docker'
 alias emacs='emacs -nw'
+alias remacs='remacs -nw'
 
 which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
