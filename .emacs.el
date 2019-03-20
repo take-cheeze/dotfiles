@@ -218,6 +218,7 @@
  '(docker-compose-up-arguments '("--detach"))
  '(eww-search-prefix "https://www.google.com/search?hl=en&q=")
  '(flycheck-check-syntax-automatically '(save mode-enabled))
+ '(flycheck-disabled-checkers '(go-megacheck go-test go-vet))
  '(gofmt-args '("-s"))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
