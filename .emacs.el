@@ -397,5 +397,5 @@
   :init
   (global-set-key (kbd "C-c d") #'docker-compose))
 
-(use-package xclip-mode
-  :init (xclip-mode))
+(use-package xclip
+  :init (xclip-mode t))
