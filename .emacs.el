@@ -397,5 +397,8 @@
   :init
   (global-set-key (kbd "C-c d") #'docker-compose))
 
+(use-package evil
+  :init (evil-mode t))
+
 (use-package xclip
   :init (xclip-mode t))
