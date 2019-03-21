@@ -228,7 +228,7 @@
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1)))
  '(next-screen-context-lines 3)
  '(package-selected-packages
-   '(xclip evil-visual-mark-mode protobuf-mode go-imports golint docker markdown-toc markdown-preview-eww markdown-preview-mode markdown-mode docker-compose-mode bazel-mode sql-indent logview rainbow-delimiters rubocopfmt dockerfile-mode nginx-mode use-package flycheck-elm twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools paredit org-ac open-junk-file multi-term minibuf-isearch milkode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-quickhelp company-shell company-terraform company-web))
+   '(evil-collection evil-ex-shell-command xclip evil-visual-mark-mode protobuf-mode go-imports golint docker markdown-toc markdown-preview-eww markdown-preview-mode markdown-mode docker-compose-mode bazel-mode sql-indent logview rainbow-delimiters rubocopfmt dockerfile-mode nginx-mode use-package flycheck-elm twittering-mode company helm-git-grep cider helm web-mode typescript-mode elm-mode wandbox xterm-color editorconfig apache-mode tablist ruby-mode magit inf-ruby haskell-mode gh emmet-mode auto-complete yari yaml-mode wgrep undohist undo-tree toml-mode switch-window smart-cursor-color sane-term rust-mode ruby-electric php-mode pdf-tools paredit org-ac open-junk-file multi-term minibuf-isearch milkode magit-gitflow magit-gh-pulls magit-filenotify lua-mode json-mode js2-mode highlight-indentation google-c-style go-mode glsl-mode git-gutter git-blamed gist ghc flycheck-rust flycheck-haskell express dtrt-indent d-mode csv cssh coffee-mode cmake-mode clang-format alert company-ansible company-bibtex company-c-headers company-dict company-emoji company-glsl company-go company-inf-ruby company-lua company-math company-nginx company-quickhelp company-shell company-terraform company-web))
  '(read-buffer-completion-ignore-case nil)
  '(read-file-name-completion-ignore-case nil)
  '(ruby-indent-level 2)
@@ -398,7 +398,17 @@
   (global-set-key (kbd "C-c d") #'docker-compose))
 
 (use-package evil
-  :init (evil-mode t))
+  :ensure t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  :config (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init 'term))
 
 (use-package xclip
   :init (xclip-mode t))
