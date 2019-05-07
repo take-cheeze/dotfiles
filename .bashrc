@@ -130,6 +130,8 @@ if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   fi
 fi
 
+alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
+
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
