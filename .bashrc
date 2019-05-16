@@ -131,7 +131,12 @@ if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
 fi
 
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
+export PATH="$HOME/.local/bin:$PATH"
 
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
+
+export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH"
+export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
+export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
