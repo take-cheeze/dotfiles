@@ -133,6 +133,10 @@ fi
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
 export PATH="$HOME/.local/bin:$PATH"
 
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
