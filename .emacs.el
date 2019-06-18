@@ -108,6 +108,7 @@
       (setq compile-command '(first compile-history)))
   (recompile))
 (global-set-key (kbd "C-c c") 'run-last-compile)
+(global-set-key (kbd "C-c k") 'kill-compilation)
 (require 'ansi-color)
 (add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
 (defun my-compilation-filter-hook ()
