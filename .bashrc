@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH"
 
 alias be='bundle exec'
 alias dc='docker-compose'
@@ -124,10 +124,11 @@ alias remacs='remacs -nw'
 which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-  if [ "$SSH_CLIENT" != "" ] ; then
-    true
-    # ulimit -s unlimited # workaround for WSL ruby
-  fi
+    export DOCKER_HOST=tcp://localhost:2375
+    if [ "$SSH_CLIENT" != "" ] ; then
+        true
+        # ulimit -s unlimited # workaround for WSL ruby
+    fi
 fi
 
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
