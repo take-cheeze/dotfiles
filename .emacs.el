@@ -206,7 +206,7 @@
    (quote
     (company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
                   (company-dabbrev-code company-gtags company-etags company-keywords)
-                  company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-go company-lua company-math-symbols-latex company-math-symbols-unicode
+                  company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-go company-math-symbols-latex company-math-symbols-unicode
                   (company-shell company-shell-env company-fish-shell)
                   company-web-html company-web-jade company-web-slim company-terraform)))
  '(company-dabbrev-code-everywhere t)
@@ -399,6 +399,3 @@
 (use-package docker-compose
   :init
   (global-set-key (kbd "C-c d") #'docker-compose))
-
-(use-package xclip
-  :init (xclip-mode t))
