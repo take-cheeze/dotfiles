@@ -88,9 +88,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -113,37 +113,75 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH"
-
-alias be='bundle exec'
-alias dc='docker-compose'
-alias d='docker'
-alias emacs='emacs -nw'
-alias remacs='remacs -nw'
+export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx"
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-  if [ "$SSH_CLIENT" != "" ] ; then
-    true
-    # ulimit -s unlimited # workaround for WSL ruby
-  fi
+    export DOCKER_HOST=tcp://localhost:2375
+    if [ "$SSH_CLIENT" != "" ] ; then
+        true
+        # ulimit -s unlimited # workaround for WSL ruby
+    fi
 fi
 
+# Python
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
-export PATH="$HOME/.local/bin:$PATH"
-
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if which pyenv 2> /dev/null > /dev/null ; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    alias py='PYTHONSTARTUP=~/.pythonrc.py python'
+fi
 
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
 
+# cuDNN
 export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH"
 export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
 export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
 
-export PATH=$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+alias be='bundle exec'
+alias dc='docker-compose'
+alias d='docker'
+alias k='kubectl'
+alias g='git'
+alias emacs='emacs -nw'
+alias remacs='remacs -nw'
+
+alias_completion(){
+    # keep global namespace clean
+    local cmd completion
+
+    # determine first word of alias definition
+    # NOTE: This is really dirty. Is it possible to use
+    #       readline's shell-expand-line or alias-expand-line?
+    cmd=$(alias "$1" | sed 's/^alias .*='\''//;s/\( .\+\|'\''\)//')
+
+    # determine completion function
+    completion=$(complete -p "$1" 2>/dev/null)
+
+    # run _completion_loader only if necessary
+    [[ -n $completion ]] || {
+
+        # load completion
+        _completion_loader "$cmd"
+
+        # detect completion
+        completion=$(complete -p "$cmd" 2>/dev/null)
+    }
+
+    # ensure completion was detected
+    [[ -n $completion ]] || return 1
+
+    # configure completion
+    eval "$(sed "s/$cmd\$/$1/" <<<"$completion")"
+}
+
+aliases=(be dc d g)
+for a in "${aliases[@]}"; do
+    alias_completion "$a"
+done
+unset a aliases
