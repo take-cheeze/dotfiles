@@ -147,3 +147,19 @@ export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
 export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
 
 export PATH=$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/twata/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/twata/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/twata/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/twata/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
