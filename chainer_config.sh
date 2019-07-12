@@ -39,3 +39,4 @@ export CHAINER_BUILD_CHAINERX=1 CHAINERX_BUILD_CUDA=1 CHAINERX_ENABLE_BLAS=1
 # export LSAN_OPTIONS="exitcode=0"
 
 # cd ~/dev/chainer-compiler && rm -rf build && mkdir build && cd build && cmake -DCHAINER_COMPILER_ENABLE_CUDA=ON -DCHAINER_COMPILER_ENABLE_PYTHON=ON -DCHAINER_COMPILER_ENABLE_CUDNN=ON -DCUDNN_ROOT_DIR=$HOME/.cudnn/active/cuda -DPYTHON_EXECUTABLE=$(which python) -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda -DCHAINER_COMPILER_ENABLE_OPENCV=ON -G Ninja ..
+# cd ~/dev/chainer/chainerx_cc && rm -rf build && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCHAINERX_BUILD_CUDA=ON -DCHAINERX_BUILD_TEST=ON -DCHAINERX_BUILD_PYTHON=OFF -DCHAINERX_WARNINGS_AS_ERRORS=ON ..
