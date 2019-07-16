@@ -22,7 +22,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$HOME/dev/chainer-compiler/third_party/chainer/chainerx_cc:$LD_LIBRARY_PATH"
 export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
 export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
 
@@ -38,5 +38,5 @@ export CHAINER_BUILD_CHAINERX=1 CHAINERX_BUILD_CUDA=1 CHAINERX_ENABLE_BLAS=1
 # export ASAN_OPTIONS="detect_leaks=0,protect_shadow_gap=0"
 # export LSAN_OPTIONS="exitcode=0"
 
-#  cd ~/dev/chainer-compiler && rm -rf build && mkdir build && cd build && cmake -DCHAINER_COMPILER_ENABLE_CUDA=ON -DCHAINER_COMPILER_ENABLE_PYTHON=ON -DCHAINER_COMPILER_ENABLE_CUDNN=ON -DCUDNN_ROOT_DIR=$HOME/.cudnn/active/cuda -DCHAINER_COMPILER_ENABLE_OPENCV=ON -DCMAKE_BUILD_TYPE=Debug -G Ninja ..
-
+# cd ~/dev/chainer-compiler && rm -rf build && mkdir build && cd build && cmake -DCHAINER_COMPILER_ENABLE_CUDA=ON -DCHAINER_COMPILER_ENABLE_PYTHON=ON -DCHAINER_COMPILER_ENABLE_CUDNN=ON -DCUDNN_ROOT_DIR=$HOME/.cudnn/active/cuda -DPYTHON_EXECUTABLE=$(which python) -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda -DCHAINER_COMPILER_ENABLE_OPENCV=ON -G Ninja ..
+# cd ~/dev/chainer/chainerx_cc && rm -rf build && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCHAINERX_BUILD_CUDA=ON -DCHAINERX_BUILD_TEST=ON -DCHAINERX_BUILD_PYTHON=OFF -DCHAINERX_WARNINGS_AS_ERRORS=ON ..
