@@ -185,3 +185,9 @@ for a in "${aliases[@]}"; do
     alias_completion "$a"
 done
 unset a aliases
+
+export SNPE_ROOT="$HOME/dev/snpe/snpe-1.27.1.382"
+
+if which kubectl >/dev/null 2>/dev/null ; then
+    source <(kubectl completion bash)
+fi
