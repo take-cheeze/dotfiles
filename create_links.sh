@@ -2,7 +2,7 @@
 
 cd $(dirname $0)
 mkdir -p ~/.emacs.d
-for i in bashrc emacs.el gitconfig gitignore emacs.d/eww-bookmarks tmux.conf gemrc bazelrc pythonrc.py gdbinit; do
+for i in bashrc emacs.el gitconfig gitignore emacs.d/eww-bookmarks tmux.conf gemrc bazelrc pythonrc.py gdbinit wl folders; do
     rm -f ~/.$i
     echo "linking: $i"
     ln -s "$PWD/.$i" ~/.$i
