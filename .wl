@@ -38,6 +38,12 @@
 
       wl-message-ignored-field-list '(".+")
       wl-message-visible-field-list '("To" "Cc" "Subject" "From")
+      wl-message-buffer-cache-size 1000
+      wl-message-buffer-prefetch-depth 30
+      wl-message-buffer-prefetch-idle-time '(0 0 50 0)
+      wl-prefetch-threshold 1000000
+      wl-auto-prefetch-first t
+      elmo-folder-update-threshold 5000
 
       ;; For auto-completing foldernames
       wl-default-spec "%")
