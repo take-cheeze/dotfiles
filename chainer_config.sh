@@ -34,6 +34,9 @@ export CHAINERX_NVCC_GENERATE_CODE="arch=compute_75,code=sm_75"
 export CUDNN_ROOT_DIR=$HOME/.cudnn/active
 export CHAINER_BUILD_CHAINERX=1 CHAINERX_BUILD_CUDA=1 CHAINERX_ENABLE_BLAS=1
 
+export SNPE_PATH="$HOME/dev/snpe/snpe-1.27.1.382"
+export LD_LIBRARY_PATH="$SNPE_PATH/lib/x86_64-linux-clang:$LD_LIBRARY_PATH"
+
 # export LD_PRELOAD="$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libasan.so.5"
 # export ASAN_OPTIONS="detect_leaks=0,protect_shadow_gap=0"
 # export LSAN_OPTIONS="exitcode=0"
