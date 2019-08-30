@@ -197,6 +197,9 @@ alias_completion(){
 
 aliases=(be dc d g)
 for a in "${aliases[@]}"; do
+    if ! which "$a" 2>/dev/null >/dev/null ; then
+        continue
+    fi
     alias_completion "$a"
 done
 unset a aliases
