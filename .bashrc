@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx"
+export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
@@ -203,3 +203,9 @@ for a in "${aliases[@]}"; do
     alias_completion "$a"
 done
 unset a aliases
+
+export SNPE_ROOT="$HOME/dev/snpe/snpe-1.27.1.382"
+
+if which kubectl >/dev/null 2>/dev/null ; then
+    source <(kubectl completion bash)
+fi
