@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin"
+export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/local/go/bin:$HOME/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:/snap/bin"
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
@@ -137,11 +137,6 @@ fi
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
-
-# cuDNN
-export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH"
-export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
-export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
 
 alias be='bundle exec'
 alias dc='docker-compose'
@@ -186,7 +181,8 @@ for a in "${aliases[@]}"; do
 done
 unset a aliases
 
-export SNPE_ROOT="$HOME/dev/snpe/snpe-1.27.1.382"
+export SNPE_ROOT="$HOME/dev/snpe/snpe-1.30.0.480"
+export LD_LIBRARY_PATH="$SNPE_ROOT/lib/x86_64-linux-clang:$LD_LIBRARY_PATH"
 
 if which kubectl >/dev/null 2>/dev/null ; then
     source <(kubectl completion bash)
