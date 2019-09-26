@@ -138,6 +138,25 @@ if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
 
+# cuDNN
+export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH"
+export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
+export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/twata/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/twata/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/twata/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/twata/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
 alias be='bundle exec'
 alias dc='docker-compose'
 alias d='docker'
@@ -177,6 +196,9 @@ alias_completion(){
 
 aliases=(be dc d g)
 for a in "${aliases[@]}"; do
+    if ! which "$a" 2>/dev/null >/dev/null ; then
+        continue
+    fi
     alias_completion "$a"
 done
 unset a aliases
