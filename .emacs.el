@@ -219,7 +219,7 @@
  '(desktop-restore-frames t)
  '(docker-compose-logs-arguments (quote ("--follow" "--tail=3")))
  '(docker-compose-up-arguments (quote ("--detach")))
- '(eww-search-prefix "https://www.google.com/search?hl=en&q=")
+ '(eww-search-prefix "https://duckduckgo.com/?q=")
  '(flycheck-check-syntax-automatically (quote (save mode-enabled)))
  '(flycheck-disabled-checkers (quote (go-megacheck go-test go-vet)))
  '(gofmt-args (quote ("-s")))
