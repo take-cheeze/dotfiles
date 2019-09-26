@@ -37,12 +37,15 @@
       wl-fcc-force-as-read    t
 
       wl-message-ignored-field-list '(".+")
-      wl-message-visible-field-list '("To" "Cc" "Subject" "From")
+      wl-message-visible-field-list '("^To:" "^Delivered-To:" "^Cc:" "^Subject:" "^From:")
       wl-message-buffer-cache-size 1000
-      wl-message-buffer-prefetch-depth 30
-      wl-message-buffer-prefetch-idle-time '(0 0 50 0)
+      wl-message-buffer-prefetch-depth 10
+      wl-message-buffer-prefetch-folder-type-list t
+      wl-message-buffer-prefetch-idle-time '(0 0 10 0)
+      wl-message-buffer-prefetch-threshold 300000
       wl-prefetch-threshold 1000000
       wl-auto-prefetch-first t
+      wl-thread-insert-opened t
       elmo-folder-update-threshold 5000
 
       ;; For auto-completing foldernames
