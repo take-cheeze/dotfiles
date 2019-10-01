@@ -1,3 +1,15 @@
+if which direnv 2>/dev/null >/dev/null; then
+    eval "$(direnv hook bash)"
+
+    show_virtual_env() {
+        if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+            echo "($(basename $VIRTUAL_ENV))"
+        fi
+    }
+    export -f show_virtual_env
+    PS1='$(show_virtual_env)'$PS1
+fi
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists

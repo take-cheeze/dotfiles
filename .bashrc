@@ -157,6 +157,18 @@ else
 fi
 unset __conda_setup
 
+if which direnv 2>/dev/null >/dev/null; then
+    eval "$(direnv hook bash)"
+
+    show_virtual_env() {
+        if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+            echo "($(basename $VIRTUAL_ENV))"
+        fi
+    }
+    export -f show_virtual_env
+    PS1='$(show_virtual_env)'$PS1
+fi
+
 alias be='bundle exec'
 alias dc='docker-compose'
 alias d='docker'
