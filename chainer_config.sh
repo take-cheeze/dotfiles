@@ -26,9 +26,11 @@ fi
 
 export PATH=$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64
 export CHAINERX_NVCC_GENERATE_CODE="arch=compute_75,code=sm_75"
+export CLANG_FORMAT_BIN=clang-format-8
 
 if which direnv 2>/dev/null >/dev/null; then
     eval "$(direnv hook bash)"
+    eval "$(direnv export bash)"
 
     show_virtual_env() {
         if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
