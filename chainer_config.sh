@@ -27,6 +27,7 @@ fi
 export PATH=$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64
 export CHAINERX_NVCC_GENERATE_CODE="arch=compute_75,code=sm_75"
 export CLANG_FORMAT_BIN=clang-format-8
+export CHAINERX_CMAKE_GENERATOR=ninja
 
 if which direnv 2>/dev/null >/dev/null; then
     eval "$(direnv hook bash)"
