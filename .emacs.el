@@ -400,3 +400,7 @@
 (use-package docker-compose
   :init
   (global-set-key (kbd "C-c d") #'docker-compose))
+
+(use-package xclip
+  :init
+  (xclip-mode t))
