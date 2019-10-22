@@ -218,6 +218,7 @@ unset a aliases
 export SNPE_ROOT="$HOME/dev/snpe/snpe-1.30.0.480"
 export LD_LIBRARY_PATH="$SNPE_ROOT/lib/x86_64-linux-clang:$LD_LIBRARY_PATH"
 
+# Workaround for WSL env
 if [ "$DISPLAY" = ":0" ] ; then
     export DISPLAY='localhost:0'
 fi
