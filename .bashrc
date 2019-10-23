@@ -128,7 +128,7 @@ fi
 
 # Python
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
-if which pyenv 2> /dev/null > /dev/null ; then
+if command -v pyenv 2> /dev/null > /dev/null ; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
     alias py='PYTHONSTARTUP=~/.pythonrc.py python'
@@ -157,7 +157,7 @@ else
 fi
 unset __conda_setup
 
-if which direnv 2>/dev/null >/dev/null; then
+if command -v direnv 2>/dev/null >/dev/null; then
     eval "$(direnv hook bash)"
 
     show_virtual_env() {
@@ -208,7 +208,7 @@ alias_completion(){
 
 aliases=(be dc d g)
 for a in "${aliases[@]}"; do
-    if ! which "$a" 2>/dev/null >/dev/null ; then
+    if ! command -v "$a" 2>/dev/null >/dev/null ; then
         continue
     fi
     alias_completion "$a"
@@ -223,6 +223,6 @@ if [ "$DISPLAY" = ":0" ] ; then
     export DISPLAY='localhost:0'
 fi
 
-if which kubectl >/dev/null 2>/dev/null ; then
+if command -v kubectl >/dev/null 2>/dev/null ; then
     source <(kubectl completion bash)
 fi
