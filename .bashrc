@@ -172,7 +172,6 @@ fi
 alias be='bundle exec'
 alias dc='docker-compose'
 alias d='docker'
-alias k='kubectl'
 alias g='git'
 alias emacs='emacs -nw'
 alias remacs='remacs -nw'
@@ -206,6 +205,12 @@ alias_completion(){
     eval "$(sed "s/$cmd\$/$1/" <<<"$completion")"
 }
 
+if command -v kubectl >/dev/null 2>/dev/null ; then
+    alias k='kubectl'
+    source <(kubectl completion bash)
+    complete -F __start_kubectl k
+fi
+
 aliases=(be dc d g)
 for a in "${aliases[@]}"; do
     if ! which "$a" 2>/dev/null >/dev/null ; then
@@ -223,6 +228,3 @@ if [ "$DISPLAY" = ":0" ] ; then
     export DISPLAY='localhost:0'
 fi
 
-if which kubectl >/dev/null 2>/dev/null ; then
-    source <(kubectl completion bash)
-fi
