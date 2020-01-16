@@ -138,11 +138,6 @@ if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
 
-# cuDNN
-export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH"
-export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
-export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 if command -v conda 2>/dev/null >/dev/null; then

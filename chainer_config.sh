@@ -44,10 +44,17 @@ fi
 
 # export CUDNN_LOGDEST_DBG=stderr
 # export CUDNN_LOGINFO_DBG=1
-export CHAINER_BUILD_CHAINERX=1 CHAINERX_BUILD_CUDA=1 CHAINERX_ENABLE_BLAS=1
+export CHAINER_BUILD_CHAINERX=1 CHAINERX_ENABLE_BLAS=1
+export CHAINERX_BUILD_CUDA=1
+
+# cuDNN
+# export LD_LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH"
+# export CPATH="$HOME/.cudnn/active/cuda/include:$CPATH"
+# export LIBRARY_PATH="$HOME/.cudnn/active/cuda/lib64:$LIBRARY_PATH"
 
 export SNPE_ROOT="$HOME/dev/snpe/snpe-1.30.0.480"
 export LD_LIBRARY_PATH="$SNPE_ROOT/lib/x86_64-linux-clang:$LD_LIBRARY_PATH"
+export NVCC='nvcc -ccbin gcc-7'
 
 # export LD_PRELOAD="$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libasan.so.5"
 # export ASAN_OPTIONS="detect_leaks=0,protect_shadow_gap=0"
