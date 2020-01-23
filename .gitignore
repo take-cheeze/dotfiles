@@ -3,3 +3,6 @@
 .envrc
 .direnv
 *.pyc
+install
+Testing
+__pycache__
