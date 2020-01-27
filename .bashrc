@@ -226,3 +226,8 @@ export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if [ "$DISPLAY" = ":0" ] ; then
     export DISPLAY='localhost:0'
 fi
+
+if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
+    export PKGFILE_PROMPT_INSTALL_MISSING=1
+    source /usr/share/doc/pkgfile/command-not-found.bash
+fi
