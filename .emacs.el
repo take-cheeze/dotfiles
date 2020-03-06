@@ -29,6 +29,7 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get-bundle git-modeline
   (setq-default git-state-modeline-decoration 'git-state-decoration-colored-letter))
+(el-get-bundle MainShayne233/gleam-mode)
 
 ;; indent setting
 (defun indent-buffer ()
