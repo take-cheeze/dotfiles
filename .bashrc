@@ -240,4 +240,6 @@ if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/google-clo
 
 export PATH="$HOME/.anyenv/bin:$PATH"
 
-eval "$(anyenv init -)"
+if [ -d $HOME/.anyenv ] ; then
+    eval "$(anyenv init -)"
+fi
