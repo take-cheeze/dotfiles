@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:/snap/bin"
+export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:/snap/bin:$HOME/.dotnet/tools"
 
 which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
