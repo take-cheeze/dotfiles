@@ -125,6 +125,12 @@ if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     fi
 fi
 
+export PATH="$HOME/.anyenv/bin:$PATH"
+
+if [ -d $HOME/.anyenv ] ; then
+    eval "$(anyenv init -)"
+fi
+
 # Python
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
 if command -v pyenv 2> /dev/null > /dev/null ; then
@@ -237,9 +243,3 @@ if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/google-cloud-sdk
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/google-cloud-sdk/completion.bash.inc"; fi
-
-export PATH="$HOME/.anyenv/bin:$PATH"
-
-if [ -d $HOME/.anyenv ] ; then
-    eval "$(anyenv init -)"
-fi
