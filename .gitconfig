@@ -10,6 +10,7 @@
 	name = take-cheeze
 [core]
 	excludesfile = ~/.gitignore
+	longPaths = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
