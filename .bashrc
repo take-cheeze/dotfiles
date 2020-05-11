@@ -225,9 +225,8 @@ unset a aliases
 
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
 
-# Workaround for WSL env
-if [ "$DISPLAY" = ":0" ] ; then
-    export DISPLAY='localhost:0'
+if [ "$DISPLAY" != "" ] ; then
+    source ~/.xprofile
 fi
 
 if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
