@@ -265,6 +265,10 @@
 
 (package-install-selected-packages)
 
+(use-package glsl-mode
+  :config
+  (append-to-list auto-mode-alist '(("\\.comp$" . glsl-mode))))
+
 (use-package multi-term
   :config
   ;; terminal setting
