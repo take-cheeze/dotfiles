@@ -115,14 +115,19 @@ fi
 export GOPATH="$HOME/dev/go"
 export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
 
-which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
+if [ "$DISPLAY" != "" ] ; then
+    source ~/.xprofile
+fi
 
-if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-    export DOCKER_HOST=tcp://localhost:2375
-    if [ "$SSH_CLIENT" != "" ] ; then
-        true
-        # ulimit -s unlimited # workaround for WSL ruby
-    fi
+if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
+    service docker status > /dev/null || sudo service docker start
+    export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
+    export LIBGL_ALWAYS_INDIRECT=1
+#     export DOCKER_HOST=tcp://localhost:2375
+#     if [ "$SSH_CLIENT" != "" ] ; then
+#         true
+#         # ulimit -s unlimited # workaround for WSL ruby
+#     fi
 fi
 
 export PATH="$HOME/.anyenv/bin:$PATH"
@@ -130,6 +135,8 @@ export PATH="$HOME/.anyenv/bin:$PATH"
 if [ -d $HOME/.anyenv ] ; then
     eval "$(anyenv init -)"
 fi
+
+which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
 # Python
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
@@ -224,10 +231,6 @@ done
 unset a aliases
 
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
-
-if [ "$DISPLAY" != "" ] ; then
-    source ~/.xprofile
-fi
 
 if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
     export PKGFILE_PROMPT_INSTALL_MISSING=1
