@@ -1,1 +1,1 @@
-xmodmap ~/.Xmodmap
+which rbenv 2> /dev/null > /dev/null && xmodmap ~/.Xmodmap
