@@ -178,6 +178,10 @@ if command -v direnv 2>/dev/null >/dev/null; then
     PS1='$(show_virtual_env)'$PS1
 fi
 
+if command -v arduino-cli 2>/dev/null >/dev/null; then
+    eval "$(arduino-cli completion bash)"
+fi
+
 alias be='bundle exec'
 alias dc='docker-compose'
 alias d='docker'
