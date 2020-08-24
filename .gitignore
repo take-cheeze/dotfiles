@@ -8,3 +8,5 @@ Testing
 __pycache__
 *.o
 *.so
+node_modules/
+*.exe
