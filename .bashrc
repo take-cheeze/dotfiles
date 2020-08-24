@@ -234,6 +234,10 @@ for a in "${aliases[@]}"; do
 done
 unset a aliases
 
+if command -v npm >/dev/null 2>/dev/null ; then
+    source <(npm completion)
+fi
+
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
 
 if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
