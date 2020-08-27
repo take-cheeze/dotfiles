@@ -417,6 +417,12 @@
   (diminish 'whitespace-mode)
   )
 
+(use-package markdown-mode
+  :init
+  (require 'markdown-mode)
+  (setf (cdr markdown-mode-map) nil)
+  )
+
 (use-package xclip
   :init
   (xclip-mode t))
