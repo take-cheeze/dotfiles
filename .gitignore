@@ -10,3 +10,4 @@ __pycache__
 *.so
 node_modules/
 *.exe
+a.out
