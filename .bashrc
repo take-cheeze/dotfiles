@@ -128,11 +128,6 @@ if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
     service docker status > /dev/null || sudo service docker start
     export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
     export LIBGL_ALWAYS_INDIRECT=1
-#     export DOCKER_HOST=tcp://localhost:2375
-#     if [ "$SSH_CLIENT" != "" ] ; then
-#         true
-#         # ulimit -s unlimited # workaround for WSL ruby
-#     fi
 fi
 
 export PATH="$HOME/.anyenv/bin:$PATH"
@@ -153,22 +148,6 @@ fi
 
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
-fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if command -v conda 2>/dev/null >/dev/null; then
-    __conda_setup="$('conda' 'shell.bash' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
-    else
-        if [ -f "/home/twata/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/home/twata/anaconda3/etc/profile.d/conda.sh"
-        else
-            export PATH="/home/twata/anaconda3/bin:$PATH"
-        fi
-    fi
-    unset __conda_setup
 fi
 
 if command -v direnv 2>/dev/null >/dev/null; then
