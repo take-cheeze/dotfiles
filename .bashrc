@@ -122,7 +122,7 @@ fi
 export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)
 
-which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
+command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
 if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
     service docker status > /dev/null || sudo service docker start
@@ -135,8 +135,6 @@ export PATH="$HOME/.anyenv/bin:$PATH"
 if [ -d $HOME/.anyenv ] ; then
     eval "$(anyenv init -)"
 fi
-
-which rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
 # Python
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
