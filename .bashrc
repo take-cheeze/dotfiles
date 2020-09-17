@@ -148,6 +148,11 @@ if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
 
+if command -v keychain 2>/dev/null >/dev/null && [ -f ~/.ssh/id_ed25519 ] ; then
+    keychain --nogui $HOME/.ssh/id_ed25519 2>/dev/null
+    source "$HOME/.keychain/$HOSTNAME-sh"
+fi
+
 if command -v direnv 2>/dev/null >/dev/null; then
     eval "$(direnv hook bash)"
 
