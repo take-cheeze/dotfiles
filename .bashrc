@@ -121,11 +121,11 @@ fi
 
 export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)
+export MAKEFLAGS=-j$(nproc)
 
 command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 
 if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
-    service docker status > /dev/null || sudo service docker start
     export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
     export LIBGL_ALWAYS_INDIRECT=1
 fi
