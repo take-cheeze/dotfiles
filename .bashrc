@@ -175,7 +175,7 @@ alias d='docker'
 alias g='git'
 alias emacs='emacs -nw'
 alias remacs='remacs -nw'
-export EDITOR=emacsclient
+# export EDITOR=emacsclient
 
 alias_completion(){
     # keep global namespace clean
