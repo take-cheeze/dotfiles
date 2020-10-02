@@ -195,6 +195,7 @@
 ;; parenthsis
 (show-paren-mode 1)
 
+(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
