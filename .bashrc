@@ -113,7 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
+export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.linuxbrew/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
 
 if [ "$DISPLAY" != "" ] ; then
     source ~/.xprofile
@@ -177,6 +177,10 @@ alias emacs='emacs -nw'
 alias remacs='remacs -nw'
 # export EDITOR=emacsclient
 
+_completion_loader(){
+    . "/etc/bash_completion.d/$1.sh" >/dev/null 2>&1 && return 124
+}
+
 alias_completion(){
     # keep global namespace clean
     local cmd completion
@@ -230,6 +234,18 @@ export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
     export PKGFILE_PROMPT_INSTALL_MISSING=1
     source /usr/share/doc/pkgfile/command-not-found.bash
+fi
+
+if command -v brew >/dev/null 2>/dev/null ; then
+    HOMEBREW_PREFIX="$(brew --prefix)"
+    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+        source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+    else
+        for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+            [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+        done
+    fi
+    alias b=brew
 fi
 
 # The next line updates PATH for the Google Cloud SDK.
