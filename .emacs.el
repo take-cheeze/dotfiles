@@ -46,8 +46,6 @@
 (add-hook 'c-mode-common-hook #'my-c-mode-common-hook)
 (add-hook 'c-mode-common-hook #'google-set-c-style)
 
-(savehist-mode t)
-
 ;; whitespace setting
 (global-whitespace-mode t)
 
@@ -83,6 +81,11 @@
 
 ;; window configurations
 (desktop-save-mode 1)
+(setq per-machine-directory (concat "~/.emacs.d/" (system-name) "/"))
+(make-directory per-machine-directory t)
+(setq desktop-path (list per-machine-directory "~" "."))
+(setq savehist-file (concat per-machine-directory "history"))
+(savehist-mode t)
 
 ;; menu bar
 (menu-bar-mode 0)
