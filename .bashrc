@@ -180,6 +180,7 @@ alias remacs='remacs -nw'
 _completion_loader(){
     . "/etc/bash_completion.d/$1.sh" >/dev/null 2>&1 && return 124
 }
+complete -D -F _completion_loader -o bashdefault -o default
 
 alias_completion(){
     # keep global namespace clean
