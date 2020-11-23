@@ -113,7 +113,6 @@ if ! shopt -oq posix; then
 fi
 
 export GOPATH="$HOME/dev/go"
-export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:$HOME/.linuxbrew/opt/ccache/libexec:$HOME/.linuxbrew/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
 
 if [ "$DISPLAY" != "" ] ; then
     source ~/.xprofile
@@ -247,7 +246,10 @@ if command -v brew >/dev/null 2>/dev/null ; then
         done
     fi
     alias b=brew
+    export PATH=$HOME/.linuxbrew/opt/ccache/libexec:$HOME/.linuxbrew/bin:$PATH
 fi
+
+export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/google-cloud-sdk/path.bash.inc"; fi
