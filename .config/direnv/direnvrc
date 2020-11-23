@@ -5,7 +5,7 @@ layout_python-venv() {
     local python=${1:-python3}
     [[ $# -gt 0 ]] && shift
     unset PYTHONHOME
-    if [[ -v VIRTUAL_ENV ]]; then
+    if [[ -n $VIRTUAL_ENV ]]; then
         VIRTUAL_ENV=$(realpath "${VIRTUAL_ENV}")
     else
         local python_version
@@ -21,5 +21,7 @@ layout_python-venv() {
         log_status "no venv found; creating $VIRTUAL_ENV"
         "$python" -m venv "$VIRTUAL_ENV"
     fi
-    PATH_add "$VIRTUAL_ENV/bin"
+
+    PATH="${VIRTUAL_ENV}/bin:${PATH}"
+    export PATH
 }
