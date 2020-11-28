@@ -308,6 +308,7 @@
     ;; add this hook as buffer local, so it runs once per window.
     (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
   (add-hook 'shell-mode-hook 'my-shell-mode-hook)
+  (global-set-key (kbd "C-c t") 'multi-term)
   )
 
 (use-package twittering-mode
