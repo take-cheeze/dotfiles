@@ -12,3 +12,4 @@ node_modules/
 *.exe
 a.out
 .mypy_cache
+.python-version
