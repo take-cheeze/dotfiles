@@ -129,20 +129,6 @@ if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
     export LIBGL_ALWAYS_INDIRECT=1
 fi
 
-export PATH="$HOME/.anyenv/bin:$PATH"
-
-if [ -d $HOME/.anyenv ] ; then
-    eval "$(anyenv init -)"
-fi
-
-# Python
-alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
-if command -v pyenv 2> /dev/null > /dev/null ; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-    alias py='PYTHONSTARTUP=~/.pythonrc.py python'
-fi
-
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
     source ~/.bazel/bin/bazel-complete.bash
 fi
@@ -236,6 +222,8 @@ if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
     source /usr/share/doc/pkgfile/command-not-found.bash
 fi
 
+export PATH=$HOME/.linuxbrew/opt/ccache/libexec:$HOME/.linuxbrew/bin:$PATH
+
 if command -v brew >/dev/null 2>/dev/null ; then
     HOMEBREW_PREFIX="$(brew --prefix)"
     if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
@@ -246,7 +234,24 @@ if command -v brew >/dev/null 2>/dev/null ; then
         done
     fi
     alias b=brew
-    export PATH=$HOME/.linuxbrew/opt/ccache/libexec:$HOME/.linuxbrew/bin:$PATH
+fi
+
+export PATH="$HOME/.anyenv/bin:$PATH"
+
+if [ -d $HOME/.anyenv ] ; then
+    eval "$(anyenv init -)"
+fi
+
+# Python
+alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
+if command -v pyenv 2> /dev/null > /dev/null ; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    alias py='PYTHONSTARTUP=~/.pythonrc.py python'
+fi
+
+if command -v poetry  >/dev/null 2>/dev/null ; then
+    source $(poetry completions bash)
 fi
 
 export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.cargo/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
