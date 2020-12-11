@@ -210,7 +210,7 @@
  '(coffee-tab-width 2)
  '(company-backends
    (quote
-    (company-bbdb company-nxml company-css company-eclim company-semantic company-capf company-files
+    (company-bbdb company-nxml company-css company-semantic company-capf company-files
                   (company-dabbrev-code company-gtags company-etags company-keywords)
                   company-oddmuse company-dabbrev company-abbrev company-ansible company-inf-ruby company-bibtex company-c-headers company-dict company-emoji company-go company-math-symbols-latex company-math-symbols-unicode
                   (company-shell company-shell-env company-fish-shell)
