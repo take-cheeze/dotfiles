@@ -250,7 +250,7 @@ if command -v pyenv 2> /dev/null > /dev/null ; then
     alias py='PYTHONSTARTUP=~/.pythonrc.py python'
 fi
 
-if command -v poetry  >/dev/null 2>/dev/null ; then
+if command -v poetry >/dev/null 2>/dev/null ; then
     source $(poetry completions bash)
 fi
 
@@ -264,6 +264,6 @@ if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/google-clo
 
 ulimit -c unlimited
 
-if [ -e "$HOME/.cargo/env"] ; then
+if [ -e "$HOME/.cargo/env" ] ; then
     source "$HOME/.cargo/env"
 fi
