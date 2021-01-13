@@ -13,3 +13,4 @@ node_modules/
 a.out
 .mypy_cache
 .python-version
+core
