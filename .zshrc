@@ -28,8 +28,6 @@ if command -v brew >/dev/null 2>/dev/null ; then
     compinit
 fi
 
-export MAKEFLAGS=$(nproc)
-
 if command -v rbenv >/dev/null ; then
     eval "$(rbenv init -)"
 fi
@@ -37,3 +35,5 @@ fi
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+export MAKEFLAGS=$(nproc)
