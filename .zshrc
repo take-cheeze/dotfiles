@@ -20,7 +20,6 @@ export PATH=$PATH:/opt/homebrew/bin
 
 if command -v brew >/dev/null 2>/dev/null ; then
     HOMEBREW_PREFIX="$(brew --prefix)"
-    alias b=brew
     export PATH=$HOMEBREW_PREFIX/opt/ccache/libexec:$PATH
 
     FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -29,13 +28,12 @@ if command -v brew >/dev/null 2>/dev/null ; then
     compinit
 fi
 
-if ! command -v nproc >/dev/null ; then
-    alias nproc="sysctl -n hw.logicalcpu"
-fi
-
 export MAKEFLAGS=$(nproc)
 
 if command -v rbenv >/dev/null ; then
     eval "$(rbenv init -)"
 fi
 
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi

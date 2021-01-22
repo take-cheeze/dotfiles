@@ -87,11 +87,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -154,12 +149,6 @@ if command -v arduino-cli 2>/dev/null >/dev/null; then
     eval "$(arduino-cli completion bash)"
 fi
 
-alias be='bundle exec'
-alias dc='docker-compose'
-alias d='docker'
-alias g='git'
-alias emacs='emacs -nw'
-alias remacs='remacs -nw'
 # export EDITOR=emacsclient
 
 _completion_loader(){
@@ -197,7 +186,6 @@ alias_completion(){
 }
 
 if command -v kubectl >/dev/null 2>/dev/null ; then
-    alias k='kubectl'
     source <(kubectl completion bash)
     complete -F __start_kubectl k
 fi
@@ -233,7 +221,6 @@ if command -v brew >/dev/null 2>/dev/null ; then
             [[ -r "$COMPLETION" ]] && source "$COMPLETION"
         done
     fi
-    alias b=brew
 fi
 
 export PATH="$HOME/.anyenv/bin:$PATH"
