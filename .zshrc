@@ -1,3 +1,9 @@
+CASE_SENSITIVE="true"
+
+if command -v direnv 2>/dev/null >/dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
 if command -v direnv 2>/dev/null >/dev/null; then
     eval "$(direnv hook zsh)"
 
@@ -9,6 +15,8 @@ if command -v direnv 2>/dev/null >/dev/null; then
 
     plugins=(git virtualenv)
 fi
+
+export PATH=$PATH:/opt/homebrew/bin
 
 if command -v brew >/dev/null 2>/dev/null ; then
     HOMEBREW_PREFIX="$(brew --prefix)"
