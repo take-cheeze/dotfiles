@@ -26,7 +26,7 @@ for i in \
     xprofile \
     zshrc \
     ; do
-    rm -f ~/.$i
+    rm ~/.$i
     mkdir -p "$(dirname ~/.$i)"
     echo "linking: $i"
     ln -s "$PWD/.$i" ~/.$i
