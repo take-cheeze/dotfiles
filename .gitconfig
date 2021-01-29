@@ -18,3 +18,5 @@
 	required = true
 [merge]
 	conflictstyle = diff3
+[init]
+	templatedir = ~/.git_template

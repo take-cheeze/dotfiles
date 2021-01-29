@@ -18,6 +18,7 @@ for i in \
     gemrc \
     gitconfig \
     gitignore \
+    git_template \
     profile \
     pythonrc.py \
     ssh/rc \
