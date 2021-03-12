@@ -201,7 +201,9 @@ if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
     source /usr/share/doc/pkgfile/command-not-found.bash
 fi
 
-export PATH=$HOME/.linuxbrew/opt/ccache/libexec:$HOME/.linuxbrew/bin:$PATH
+if [ -d $HOME/.linuxbrew ] ; then
+    export PATH=$HOME/.linuxbrew/opt/ccache/libexec:$HOME/.linuxbrew/bin:$PATH
+fi
 
 if command -v brew >/dev/null 2>/dev/null ; then
     HOMEBREW_PREFIX="$(brew --prefix)"
