@@ -101,6 +101,7 @@
                   ("\\.command$" . shell-mode)
                   ("zshrc" . shell-script-mode)
                   ("\\.js$" . js2-mode)
+                  ("\\.tsx$" . web-mode)
                   ("\\.h$" . c++-mode)
                   ("\\.html\\.erb$" . web-mode)
                   ("\\.json_schema$" . json-mode)))
