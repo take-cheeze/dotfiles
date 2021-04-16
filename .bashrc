@@ -242,3 +242,5 @@ ulimit -c unlimited
 if [ -e "$HOME/.cargo/env" ] ; then
     source "$HOME/.cargo/env"
 fi
+
+export NO_AT_BRIDGE=1
