@@ -103,8 +103,6 @@ export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)
 export MAKEFLAGS=-j$(nproc)
 
-command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
-
 if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
     export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
     export LIBGL_ALWAYS_INDIRECT=1
@@ -217,6 +215,8 @@ if [ -d $HOME/.anyenv ] ; then
     eval "$(anyenv init -)"
 fi
 
+command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
+
 # Python
 alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
 if command -v pyenv 2> /dev/null > /dev/null ; then
@@ -229,7 +229,7 @@ if command -v poetry >/dev/null 2>/dev/null ; then
     source $(poetry completions bash)
 fi
 
-export PATH="$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.rbenv/bin:$GOPATH/bin:$HOME/.yarn/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
+export PATH="$HOME/.local/bin:$GOPATH/bin:$HOME/.yarn/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/google-cloud-sdk/path.bash.inc"; fi
