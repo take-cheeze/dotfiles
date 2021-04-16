@@ -310,7 +310,6 @@
     (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
   (add-hook 'shell-mode-hook 'my-shell-mode-hook)
   (global-set-key (kbd "C-c t") 'multi-term)
-  (setq-default term-term-name "xterm-256color")
   )
 
 (use-package twittering-mode
