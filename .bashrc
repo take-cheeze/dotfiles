@@ -133,56 +133,6 @@ if command -v arduino-cli 2>/dev/null >/dev/null; then
     eval "$(arduino-cli completion bash)"
 fi
 
-# export EDITOR=emacsclient
-
-_completion_loader(){
-    . "/etc/bash_completion.d/$1.sh" >/dev/null 2>&1 && return 124
-}
-complete -D -F _completion_loader -o bashdefault -o default
-
-alias_completion(){
-    # keep global namespace clean
-    local cmd completion
-
-    # determine first word of alias definition
-    # NOTE: This is really dirty. Is it possible to use
-    #       readline's shell-expand-line or alias-expand-line?
-    cmd=$(alias "$1" | sed 's/^alias .*='\''//;s/\( .\+\|'\''\)//')
-
-    # determine completion function
-    completion=$(complete -p "$1" 2>/dev/null)
-
-    # run _completion_loader only if necessary
-    [[ -n $completion ]] || {
-
-        # load completion
-        _completion_loader "$cmd"
-
-        # detect completion
-        completion=$(complete -p "$cmd" 2>/dev/null)
-    }
-
-    # ensure completion was detected
-    [[ -n $completion ]] || return 1
-
-    # configure completion
-    eval "$(sed "s/$cmd\$/$1/" <<<"$completion")"
-}
-
-if command -v kubectl >/dev/null 2>/dev/null ; then
-    source <(kubectl completion bash)
-    complete -F __start_kubectl k
-fi
-
-aliases=(be dc d g)
-for a in "${aliases[@]}"; do
-    if ! command -v "$a" 2>/dev/null >/dev/null ; then
-        continue
-    fi
-    alias_completion "$a"
-done
-unset a aliases
-
 if command -v npm >/dev/null 2>/dev/null ; then
     source <(npm completion)
 fi
