@@ -429,6 +429,12 @@
   (setf (cdr markdown-mode-map) nil)
   )
 
+(use-package mhtml-mode
+  :init
+  (require 'mhtml-mode)
+  (setf (cdr mhtml-mode-map) nil)
+  )
+
 (use-package xclip
   :init
   (xclip-mode t))
