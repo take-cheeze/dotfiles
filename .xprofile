@@ -1,1 +1,3 @@
-which xmodmap 2> /dev/null > /dev/null && xmodmap ~/.Xmodmap
+if [ ! -v SSH_CONNECTION ] ; then
+   which xmodmap 2> /dev/null > /dev/null && xmodmap ~/.Xmodmap
+fi
