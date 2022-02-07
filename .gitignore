@@ -15,3 +15,4 @@ a.out
 .python-version
 core
 _skbuild/
+pip-wheel-metadata/
