@@ -403,11 +403,12 @@
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
-;; (use-package bazel-mode
-;;   :config
+(use-package bazel-mode
+  :config
+  (append-to-list auto-mode-alist '(("\\.sky$" . bazel-starlark-mode)))
 ;;   (append-to-list auto-mode-alist '(("BUILD" . bazel-mode)
 ;;                                     ("\\.bzl$" . bazel-mode)))
-;;   )
+  )
 
 (use-package docker-compose
   :init
