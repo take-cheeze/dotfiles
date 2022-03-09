@@ -104,7 +104,10 @@
                   ("\\.tsx$" . web-mode)
                   ("\\.h$" . c++-mode)
                   ("\\.html\\.erb$" . web-mode)
-                  ("\\.json_schema$" . json-mode)))
+                  ("\\.json_schema$" . json-mode)
+                  ("\\.mm$" . objc-mode)
+                  ("\\.mjs$" . js-mode)
+                  ))
 
 ;; compilation buffer
 (defun run-last-compile ()
