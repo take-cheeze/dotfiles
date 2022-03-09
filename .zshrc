@@ -2,10 +2,6 @@ CASE_SENSITIVE="true"
 
 if command -v direnv 2>/dev/null >/dev/null; then
     eval "$(direnv hook zsh)"
-fi
-
-if command -v direnv 2>/dev/null >/dev/null; then
-    eval "$(direnv hook zsh)"
 
     function virtualenv_prompt_info(){
         [[ -n ${VIRTUAL_ENV} ]] || return
