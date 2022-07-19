@@ -80,17 +80,17 @@ fi
 
 export GOPATH="$HOME/dev/go"
 
-if [ "$DISPLAY" != "" ] ; then
-    source ~/.xprofile
-fi
-
 export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)
 export MAKEFLAGS=-j$(nproc)
 
-if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
-    export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
-    export LIBGL_ALWAYS_INDIRECT=1
+# if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
+#     export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
+#     export LIBGL_ALWAYS_INDIRECT=1
+# fi
+
+if [ "$DISPLAY" != "" ] ; then
+    source ~/.xprofile
 fi
 
 if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
