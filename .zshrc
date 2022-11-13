@@ -33,3 +33,6 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 export MAKEFLAGS=$(nproc)
+export CTEST_OUTPUT_ON_FAILURE=1
+export CTEST_PARALLEL_LEVEL=$(nproc)
+
