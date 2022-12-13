@@ -12,7 +12,7 @@ if command -v direnv 2>/dev/null >/dev/null; then
     plugins=(git virtualenv)
 fi
 
-export PATH=$PATH:/opt/homebrew/bin:$HOME/.local/bin
+export PATH=$HOME/.homebrew/bin:$HOME/.local/bin:$PATH
 
 if command -v brew >/dev/null 2>/dev/null ; then
     HOMEBREW_PREFIX="$(brew --prefix)"
