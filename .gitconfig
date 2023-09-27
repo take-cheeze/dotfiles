@@ -2,8 +2,9 @@
 	gpgsign = true
 [alias]
 	s = status
-        d = diff
+    d = diff
 	co = checkout
+	g = grep
 [user]
 	signingkey = 879C96BCBDAA8CF94046E6CC80AEF83FA91D6A9D
 	email = takechi101010@gmail.com
