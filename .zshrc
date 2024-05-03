@@ -32,7 +32,7 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-export MAKEFLAGS=$(nproc)
+export MAKEFLAGS=-j$(nproc)
 export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)
 
