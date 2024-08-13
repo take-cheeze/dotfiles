@@ -11,6 +11,7 @@ for i in \
     bazelrc \
     brew-aliases \
     config/direnv/direnvrc \
+    config/nix/nix.conf \
     emacs.d/eww-bookmarks \
     emacs.el \
     folders \
