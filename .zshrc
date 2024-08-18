@@ -1,6 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] ; then
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
+if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix.sh ] ; then
+    . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+fi
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -138,4 +146,3 @@ fi
 export MAKEFLAGS=-j$(nproc)
 export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)
-
