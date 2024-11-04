@@ -17,3 +17,4 @@ core
 _skbuild/
 pip-wheel-metadata/
 *.egg-info
+result
