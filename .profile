@@ -72,6 +72,10 @@ if [ -d /opt/homebrew/bin ] ; then
     export PATH=/opt/homebrew/bin:$PATH
 fi
 
+if command -v npm >/dev/null 2>/dev/null ; then
+    source <(npm completion)
+fi
+
 export MAKEFLAGS=-j$(nproc)
 export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)

@@ -39,6 +39,7 @@
     pkgs.ninja
     pkgs.pyenv
     pkgs.gnupg
+    pkgs.nodejs
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

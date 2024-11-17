@@ -80,10 +80,6 @@ fi
 
 export PATH="$HOME/.local/bin:$GOPATH/bin:$HOME/.yarn/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools:$HOME/.platformio/penv/bin:node_modules/.bin"
 
-if [ -e "$HOME/.cargo/env" ] ; then
-    source "$HOME/.cargo/env"
-fi
-
 # if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
 #     export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
 #     export LIBGL_ALWAYS_INDIRECT=1
@@ -100,10 +96,6 @@ fi
 if command -v keychain 2>/dev/null >/dev/null && [ -f ~/.ssh/id_ed25519 ] ; then
     keychain --nogui $HOME/.ssh/id_ed25519 2>/dev/null
     source "$HOME/.keychain/$HOSTNAME-sh"
-fi
-
-if command -v npm >/dev/null 2>/dev/null ; then
-    source <(npm completion)
 fi
 
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
