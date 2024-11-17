@@ -3,8 +3,9 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "takecheeze";
-  home.homeDirectory = "/Users/takecheeze";
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
+  home.enableNixpkgsReleaseCheck = false;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -34,6 +35,10 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    pkgs.ninja
+    pkgs.pyenv
+    pkgs.gnupg
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

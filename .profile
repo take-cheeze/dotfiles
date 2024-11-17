@@ -18,12 +18,12 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 if [ -e "$HOME/.cargo/env" ] ; then
@@ -41,3 +41,39 @@ fi
 if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ] ; then
     . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 fi
+
+alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
+
+if ! command -v nproc >/dev/null ; then
+    alias nproc="sysctl -n hw.logicalcpu"
+fi
+
+if [ -d $HOME/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+fi
+
+if command -v pyenv 2> /dev/null > /dev/null ; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+
+command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
+
+if command -v arduino-cli 2>/dev/null >/dev/null; then
+    eval "$(arduino-cli completion $SHELL)"
+fi
+
+if command -v direnv 2>/dev/null >/dev/null; then
+    eval "$(direnv hook $SHELL)"
+fi
+
+if [ -d /opt/homebrew/bin ] ; then
+    export PATH=/opt/homebrew/bin:$PATH
+fi
+
+export MAKEFLAGS=-j$(nproc)
+export CTEST_OUTPUT_ON_FAILURE=1
+export CTEST_PARALLEL_LEVEL=$(nproc)
+
+export GOPATH="$HOME/dev/go"

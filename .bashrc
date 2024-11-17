@@ -78,12 +78,6 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export GOPATH="$HOME/dev/go"
-
-export CTEST_OUTPUT_ON_FAILURE=1
-export CTEST_PARALLEL_LEVEL=$(nproc)
-export MAKEFLAGS=-j$(nproc)
-
 export PATH="$HOME/.local/bin:$GOPATH/bin:$HOME/.yarn/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools:$HOME/.platformio/penv/bin:node_modules/.bin"
 
 if [ -e "$HOME/.cargo/env" ] ; then
@@ -108,22 +102,6 @@ if command -v keychain 2>/dev/null >/dev/null && [ -f ~/.ssh/id_ed25519 ] ; then
     source "$HOME/.keychain/$HOSTNAME-sh"
 fi
 
-if command -v direnv 2>/dev/null >/dev/null; then
-    eval "$(direnv hook bash)"
-
-    show_virtual_env() {
-        if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
-            echo "($(basename $VIRTUAL_ENV))"
-        fi
-    }
-    export -f show_virtual_env
-    PS1='$(show_virtual_env)'$PS1
-fi
-
-if command -v arduino-cli 2>/dev/null >/dev/null; then
-    eval "$(arduino-cli completion bash)"
-fi
-
 if command -v npm >/dev/null 2>/dev/null ; then
     source <(npm completion)
 fi
@@ -133,10 +111,6 @@ export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
     export PKGFILE_PROMPT_INSTALL_MISSING=1
     source /usr/share/doc/pkgfile/command-not-found.bash
-fi
-
-if [ -d $HOME/.linuxbrew ] ; then
-    export PATH=$HOME/.linuxbrew/opt/ccache/libexec:$HOME/.linuxbrew/bin:$PATH
 fi
 
 if command -v brew >/dev/null 2>/dev/null ; then
@@ -149,32 +123,6 @@ if command -v brew >/dev/null 2>/dev/null ; then
         done
     fi
 fi
-
-export PATH="$HOME/.anyenv/bin:$PATH"
-
-if [ -d $HOME/.anyenv ] ; then
-    eval "$(anyenv init -)"
-fi
-
-command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
-
-# Python
-alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
-if command -v pyenv 2> /dev/null > /dev/null ; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-    alias py='PYTHONSTARTUP=~/.pythonrc.py python'
-fi
-
-if command -v poetry >/dev/null 2>/dev/null ; then
-    source $(poetry completions bash)
-fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/google-cloud-sdk/path.bash.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/google-cloud-sdk/completion.bash.inc"; fi
 
 ulimit -c unlimited
 

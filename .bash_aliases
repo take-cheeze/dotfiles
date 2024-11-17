@@ -11,7 +11,3 @@ alias k='kubectl'
 alias emacs='emacs -nw'
 alias remacs='remacs -nw'
 alias c='code'
-
-if ! command -v nproc >/dev/null ; then
-    alias nproc="sysctl -n hw.logicalcpu"
-fi

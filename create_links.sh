@@ -27,6 +27,7 @@ for i in \
     tmux.conf \
     wl \
     xprofile \
+    zprofile \
     zshrc \
     ; do
     if [ -e ~/.$i ] ; then
