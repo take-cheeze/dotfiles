@@ -40,6 +40,13 @@
     pkgs.pyenv
     pkgs.gnupg
     pkgs.nodejs
+    pkgs.ccache
+    pkgs.htop
+    pkgs.file
+    pkgs.cmake
+    pkgs.yt-dlp
+    pkgs.pre-commit
+    pkgs.clang-tools
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
