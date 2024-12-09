@@ -89,6 +89,7 @@
   home.sessionVariables = {
     CTEST_OUTPUT_ON_FAILURE = "1";
     CTEST_PARALLEL_LEVEL = builtins.getEnv "NIX_BUILD_CORES";
+    MAKEFLAGS = "-j${builtins.getEnv "NIX_BUILD_CORES"}";
     HISTSIZE = "-1";
     HISTFILESIZE = "-1";
     HISTCONTROL = "ignoredups";
