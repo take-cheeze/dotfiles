@@ -48,6 +48,11 @@
     pkgs.yt-dlp
     pkgs.pre-commit
     pkgs.clang-tools
+    pkgs.cmake-format
+    pkgs.wget
+    pkgs.unar
+    pkgs.p7zip
+    pkgs.nixfmt-rfc-style
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
