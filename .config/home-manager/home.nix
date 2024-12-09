@@ -36,6 +36,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    pkgs.git
     pkgs.ninja
     pkgs.pyenv
     pkgs.gnupg
@@ -81,7 +82,11 @@
   #  /etc/profiles/per-user/takecheeze/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    CTEST_OUTPUT_ON_FAILURE = "1";
+    CTEST_PARALLEL_LEVEL = builtins.getEnv "NIX_BUILD_CORES";
+    HISTSIZE = "-1";
+    HISTFILESIZE = "-1";
+    HISTCONTROL = "ignoredups";
   };
 
   # Let Home Manager install and manage itself.

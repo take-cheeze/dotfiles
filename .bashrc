@@ -8,16 +8,8 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoredups
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=-1
-HISTFILESIZE=-1
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -40,12 +32,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -68,9 +60,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+[ ! -v _direnv_hook ] && . ~/.profile
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+[ "$DISPLAY" != "" ] && . ~/.xprofile
 
 if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -78,43 +70,9 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export PATH="$HOME/.local/bin:$GOPATH/bin:$HOME/.yarn/bin:/usr/lib/ccache:/usr/lib/ccache/bin:/usr/local/go/bin:$HOME/bin:/snap/bin:$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64:$HOME/dev/mx:/usr/local/cuda/bin:$HOME/.dotnet/tools:$HOME/.platformio/penv/bin:node_modules/.bin"
-
-# if grep -qE "(microsoft|WSL)" /proc/version &> /dev/null ; then
-#     export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0"
-#     export LIBGL_ALWAYS_INDIRECT=1
-# fi
-
-if [ "$DISPLAY" != "" ] ; then
-    source ~/.xprofile
-fi
-
-if [ -f ~/.bazel/bin/bazel-complete.bash ] ; then
-    source ~/.bazel/bin/bazel-complete.bash
-fi
-
 if command -v keychain 2>/dev/null >/dev/null && [ -f ~/.ssh/id_ed25519 ] ; then
     keychain --nogui $HOME/.ssh/id_ed25519 2>/dev/null
     source "$HOME/.keychain/$HOSTNAME-sh"
 fi
 
-export PYTHON_CONFIGURE_OPTS="--enable-shared"
-
-if [ -f /usr/share/doc/pkgfile/command-not-found.bash ] ; then
-    export PKGFILE_PROMPT_INSTALL_MISSING=1
-    source /usr/share/doc/pkgfile/command-not-found.bash
-fi
-
-if command -v brew >/dev/null 2>/dev/null ; then
-    HOMEBREW_PREFIX="$(brew --prefix)"
-    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-        source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-    else
-        for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-            [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-        done
-    fi
-fi
-
 ulimit -c unlimited
-

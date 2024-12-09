@@ -8,28 +8,6 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -e "$HOME/.cargo/env" ] ; then
-    source "$HOME/.cargo/env"
-fi
-
 if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] ; then
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
@@ -42,42 +20,26 @@ if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ] ; then
     . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 fi
 
-alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
+[ -d "$HOME/.anyenv" ] && export PATH="$HOME/.anyenv/bin:$PATH"
+[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+[ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[ -d /opt/homebrew/bin ] && export PATH=/opt/homebrew/bin:$PATH
 
-if ! command -v nproc >/dev/null ; then
-    alias nproc="sysctl -n hw.logicalcpu"
-fi
-
-if [ -d $HOME/.anyenv ] ; then
-    export PATH="$HOME/.anyenv/bin:$PATH"
-    eval "$(anyenv init -)"
-fi
-
+export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if command -v pyenv 2> /dev/null > /dev/null ; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
 
+command -v anyenv 2> /dev/null > /dev/null && eval "$(anyenv init -)"
 command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
-
-if command -v arduino-cli 2>/dev/null >/dev/null; then
-    eval "$(arduino-cli completion $SHELL)"
-fi
-
-if command -v direnv 2>/dev/null >/dev/null; then
-    eval "$(direnv hook $SHELL)"
-fi
-
-if [ -d /opt/homebrew/bin ] ; then
-    export PATH=/opt/homebrew/bin:$PATH
-fi
-
-if command -v npm >/dev/null 2>/dev/null ; then
-    source <(npm completion)
-fi
+command -v direnv 2>/dev/null >/dev/null && eval "$(direnv hook $SHELL)"
+command -v arduino-cli 2>/dev/null >/dev/null && eval "$(arduino-cli completion $SHELL)"
+command -v npm >/dev/null 2>/dev/null && source <(npm completion)
 
 export MAKEFLAGS=-j$(nproc)
-export CTEST_OUTPUT_ON_FAILURE=1
 export CTEST_PARALLEL_LEVEL=$(nproc)
 
 export GOPATH="$HOME/dev/go"
+export PATH="$GOPATH/bin:node_modules/.bin:$PATH"

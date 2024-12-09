@@ -113,6 +113,4 @@ source $ZSH/oh-my-zsh.sh
 
 CASE_SENSITIVE="true"
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
