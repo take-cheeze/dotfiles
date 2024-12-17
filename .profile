@@ -29,6 +29,9 @@ fi
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if command -v pyenv 2> /dev/null > /dev/null ; then
     eval "$(pyenv init -)"
+    if [ ! -d "$(pyenv root)/plugins/pyenv-virtualenv" ] ; then
+        git clone https://github.com/pyenv/pyenv-virtualenv.git "$(pyenv root)/plugins/pyenv-virtualenv"
+    fi
     eval "$(pyenv virtualenv-init -)"
 fi
 

@@ -18,3 +18,4 @@ _skbuild/
 pip-wheel-metadata/
 *.egg-info
 result
+*.gcov
