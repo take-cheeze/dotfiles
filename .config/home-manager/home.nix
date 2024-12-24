@@ -53,6 +53,7 @@
     pkgs.unar
     pkgs.p7zip
     pkgs.nixfmt-rfc-style
+    pkgs.gh
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
