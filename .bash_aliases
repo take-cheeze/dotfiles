@@ -14,3 +14,6 @@ alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
 if ! command -v nproc >/dev/null ; then
     alias nproc="sysctl -n hw.logicalcpu"
 fi
+
+export CTEST_PARALLEL_LEVEL="$(nproc)"
+export MAKEFLAGS="-j$(nproc)"
