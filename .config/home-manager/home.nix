@@ -54,6 +54,7 @@
     pkgs.p7zip
     pkgs.nixfmt-rfc-style
     pkgs.gh
+    pkgs.android-tools
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
