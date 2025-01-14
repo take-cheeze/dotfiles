@@ -55,6 +55,8 @@
     pkgs.nixfmt-rfc-style
     pkgs.gh
     pkgs.android-tools
+    pkgs.ffmpeg
+    pkgs.unixtools.watch
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
