@@ -37,6 +37,7 @@
     # '')
 
     pkgs.git
+    pkgs.git-lfs
     pkgs.ninja
     pkgs.pyenv
     pkgs.gnupg
