@@ -58,6 +58,7 @@
     pkgs.android-tools
     pkgs.ffmpeg
     pkgs.unixtools.watch
+    pkgs.unrar
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

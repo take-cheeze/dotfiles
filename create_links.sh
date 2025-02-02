@@ -12,6 +12,7 @@ for i in \
     brew-aliases \
     config/direnv/direnvrc \
     config/nix/nix.conf \
+    config/nixpkgs/config.nix \
     config/home-manager/home.nix \
     emacs.d/eww-bookmarks \
     emacs.el \
