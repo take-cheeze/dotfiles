@@ -36,6 +36,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    pkgs.bazelisk
     pkgs.git
     pkgs.git-lfs
     pkgs.ninja
@@ -59,6 +60,7 @@
     pkgs.ffmpeg
     pkgs.unixtools.watch
     pkgs.unrar
+    pkgs.uv
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
