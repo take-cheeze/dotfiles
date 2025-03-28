@@ -39,7 +39,7 @@ command -v anyenv 2> /dev/null > /dev/null && eval "$(anyenv init -)"
 command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 command -v direnv 2>/dev/null >/dev/null && eval "$(direnv hook $SHELL)"
 command -v arduino-cli 2>/dev/null >/dev/null && eval "$(arduino-cli completion $SHELL)"
-command -v npm >/dev/null 2>/dev/null && source <(npm completion)
+command -v npm >/dev/null 2>/dev/null && eval "$(npm completion)"
 
 export GOPATH="$HOME/dev/go"
 export PATH="$GOPATH/bin:node_modules/.bin:$PATH"
