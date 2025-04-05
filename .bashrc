@@ -70,6 +70,13 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+command -v arduino-cli 2>/dev/null >/dev/null && eval "$(arduino-cli completion $SHELL)"
+command -v npm >/dev/null 2>/dev/null && eval "$(npm completion)"
+if command -v kubectl > /dev/null ; then
+    . <(kubectl completion bash)
+    complete -o default -F __start_kubectl k
+fi
+
 if command -v keychain 2>/dev/null >/dev/null && [ -f ~/.ssh/id_ed25519 ] ; then
     keychain --nogui $HOME/.ssh/id_ed25519 2>/dev/null
     source "$HOME/.keychain/$HOSTNAME-sh"
