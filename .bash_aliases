@@ -14,6 +14,16 @@ alias py='PYTHONSTARTUP=~/.pythonrc.py python3'
 if ! command -v nproc >/dev/null ; then
     alias nproc="sysctl -n hw.logicalcpu"
 fi
+alias tf=terraform
 
 export CTEST_PARALLEL_LEVEL="$(nproc)"
 export MAKEFLAGS="-j$(nproc)"
+
+command -v arduino-cli 2>/dev/null >/dev/null && eval "$(arduino-cli completion $SHELL)"
+command -v npm >/dev/null 2>/dev/null && eval "$(npm completion)"
+if command -v kubectl > /dev/null ; then
+    . <(kubectl completion bash)
+    complete -o default -F __start_kubectl k
+fi
+command -v glab >/dev/null 2>/dev/null && eval "$(glab completion)"
+command -v faas-cli >/dev/null 2>/dev/null && eval "$(faas-cli completion --shell $(basename $SHELL))"

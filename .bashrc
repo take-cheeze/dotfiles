@@ -61,7 +61,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 [ ! -v _direnv_hook ] && . ~/.profile
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ "$DISPLAY" != "" ] && . ~/.xprofile
 
 if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -70,12 +69,7 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-command -v arduino-cli 2>/dev/null >/dev/null && eval "$(arduino-cli completion $SHELL)"
-command -v npm >/dev/null 2>/dev/null && eval "$(npm completion)"
-if command -v kubectl > /dev/null ; then
-    . <(kubectl completion bash)
-    complete -o default -F __start_kubectl k
-fi
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
 
 if command -v keychain 2>/dev/null >/dev/null && [ -f ~/.ssh/id_ed25519 ] ; then
     keychain --nogui $HOME/.ssh/id_ed25519 2>/dev/null
