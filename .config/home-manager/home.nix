@@ -59,6 +59,7 @@
     pkgs.p7zip
     pkgs.nixfmt-rfc-style
     pkgs.gh
+    pkgs.glab
     pkgs.android-tools
     pkgs.ffmpeg
     pkgs.unixtools.watch
