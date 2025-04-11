@@ -36,35 +36,40 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    pkgs.android-tools
     pkgs.aria2
+    pkgs.arkade
+    pkgs.awscli2
     pkgs.bazelisk
+    pkgs.ccache
+    pkgs.clang-tools
+    pkgs.cmake
+    pkgs.cmake-format
     pkgs.deno
     pkgs.faas-cli
+    pkgs.ffmpeg
+    pkgs.file
+    pkgs.gh
     pkgs.git
     pkgs.git-lfs
-    pkgs.ninja
-    pkgs.pyenv
-    pkgs.gnupg
-    pkgs.nodejs
-    pkgs.ccache
-    pkgs.htop
-    pkgs.file
-    pkgs.cmake
-    pkgs.yt-dlp
-    pkgs.pre-commit
-    pkgs.clang-tools
-    pkgs.cmake-format
-    pkgs.wget
-    pkgs.unar
-    pkgs.p7zip
-    pkgs.nixfmt-rfc-style
-    pkgs.gh
     pkgs.glab
-    pkgs.android-tools
-    pkgs.ffmpeg
+    pkgs.gnupg
+    pkgs.go
+    pkgs.golangci-lint
+    pkgs.htop
+    pkgs.ninja
+    pkgs.nixfmt-rfc-style
+    pkgs.nodejs
+    pkgs.p7zip
+    pkgs.pre-commit
+    pkgs.pyenv
+    pkgs.tea
+    pkgs.unar
     pkgs.unixtools.watch
     pkgs.unrar
     pkgs.uv
+    pkgs.wget
+    pkgs.yt-dlp
     pkgs.zulu
   ];
 
