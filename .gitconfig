@@ -12,6 +12,8 @@
 [core]
 	excludesfile = ~/.gitignore
 	longPaths = true
+	precomposeunicode = true
+	quotepath = off
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
