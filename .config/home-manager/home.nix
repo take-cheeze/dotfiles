@@ -49,6 +49,7 @@
     pkgs.faas-cli
     pkgs.ffmpeg
     pkgs.file
+    pkgs.func
     pkgs.gh
     pkgs.git
     pkgs.git-lfs
@@ -57,17 +58,22 @@
     pkgs.go
     pkgs.golangci-lint
     pkgs.htop
+    pkgs.kn
+    pkgs.kubernetes-helm
     pkgs.ninja
     pkgs.nixfmt-rfc-style
     pkgs.nodejs
     pkgs.p7zip
     pkgs.pre-commit
+    pkgs.proot
     pkgs.pyenv
+    pkgs.rustup
     pkgs.tea
     pkgs.unar
     pkgs.unixtools.watch
     pkgs.unrar
     pkgs.uv
+    pkgs.valkey
     pkgs.wget
     pkgs.yt-dlp
     pkgs.zulu
