@@ -65,7 +65,7 @@
     pkgs.nodejs
     pkgs.p7zip
     pkgs.pre-commit
-    pkgs.proot
+    # pkgs.proot
     pkgs.pyenv
     pkgs.rustup
     pkgs.tea
