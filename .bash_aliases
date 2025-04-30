@@ -25,7 +25,7 @@ if command -v kubectl > /dev/null ; then
     . <(kubectl completion $(basename $SHELL))
     test -v BASH && complete -o default -F __start_kubectl k
 fi
-command -v glab >/dev/null 2>/dev/null && eval "$(glab completion)"
+command -v glab >/dev/null 2>/dev/null && eval "$(glab completion -s $(basename $SHELL))"
 command -v faas-cli >/dev/null 2>/dev/null && eval "$(faas-cli completion --shell $(basename $SHELL))"
 command -v helm >/dev/null 2>/dev/null && eval "$(helm completion $(basename $SHELL))"
 if command -v docker >/dev/null 2>/dev/null ; then
