@@ -23,7 +23,11 @@ fi
 [ -d "$HOME/.anyenv" ] && export PATH="$HOME/.anyenv/bin:$PATH"
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
-[ -e "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+if [ -e "$HOME/.cargo/env" ] ; then
+    source "$HOME/.cargo/env"
+elif [ -d "$HOME/.cargo/bin" ] ; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
 [ -d /opt/homebrew/bin ] && export PATH=/opt/homebrew/bin:$PATH
 
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
