@@ -58,6 +58,7 @@
     pkgs.go
     pkgs.golangci-lint
     pkgs.htop
+    pkgs.iverilog
     pkgs.kn
     pkgs.kubernetes-helm
     pkgs.ninja
@@ -74,6 +75,7 @@
     pkgs.unrar
     pkgs.uv
     pkgs.valkey
+    pkgs.verilator
     pkgs.wget
     pkgs.yt-dlp
     pkgs.zulu
