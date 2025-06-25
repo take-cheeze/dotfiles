@@ -60,6 +60,7 @@
     pkgs.htop
     pkgs.iverilog
     pkgs.kn
+    pkgs.krew
     pkgs.kubernetes-helm
     pkgs.ninja
     pkgs.nixfmt-rfc-style
