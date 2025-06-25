@@ -42,6 +42,7 @@ fi
 command -v anyenv 2> /dev/null > /dev/null && eval "$(anyenv init -)"
 command -v rbenv 2> /dev/null > /dev/null && eval "$(rbenv init -)"
 command -v direnv 2>/dev/null >/dev/null && eval "$(direnv hook $SHELL)"
+command -v krew 2>/dev/null >/dev/null && export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 export GOPATH="$HOME/dev/go"
 export PATH="$GOPATH/bin:node_modules/.bin:$PATH"
