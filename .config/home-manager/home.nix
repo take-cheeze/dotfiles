@@ -46,6 +46,7 @@
     pkgs.cmake
     pkgs.cmake-format
     pkgs.deno
+    pkgs.exiftool
     pkgs.faas-cli
     pkgs.ffmpeg
     pkgs.file
