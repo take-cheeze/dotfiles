@@ -21,3 +21,5 @@ result
 *.gcov
 .DS_Store
 *.uid
+*.nsys-rep
+*.sqlite
