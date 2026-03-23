@@ -1,5 +1,15 @@
 { config, pkgs, ... }:
 
+let
+  pkgs_2505 = import (pkgs.fetchFromGitHub {
+    owner = "NixOS";
+    repo = "nixpkgs";
+    rev = "release-25.05";
+    hash = "sha256-jc21hKogFnxU7KXSVTRmxC7u5D4RHwm9BAvDf5/Z1Uo=";
+  }) {
+    inherit (pkgs) system;
+  };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -14,7 +24,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "25.11"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -59,12 +69,13 @@
     pkgs.go
     pkgs.golangci-lint
     pkgs.htop
+    pkgs.imagemagick
     pkgs.iverilog
     pkgs.kn
     pkgs.krew
     pkgs.kubernetes-helm
     pkgs.ninja
-    pkgs.nixfmt-rfc-style
+    pkgs.nixfmt
     pkgs.nodejs
     pkgs.p7zip
     pkgs.pre-commit
@@ -127,6 +138,7 @@
 
     direnv = {
       enable = true;
+      package = pkgs_2505.direnv;
       enableBashIntegration = true; # see note on other shells below
       nix-direnv.enable = true;
     };
