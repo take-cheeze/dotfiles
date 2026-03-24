@@ -1,11 +1,11 @@
 { config, pkgs, ... }:
 
 let
-  pkgs_2505 = import (pkgs.fetchFromGitHub {
+  pkgs_direnv_patched = import (pkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "release-25.05";
-    hash = "sha256-jc21hKogFnxU7KXSVTRmxC7u5D4RHwm9BAvDf5/Z1Uo=";
+    rev = "5a78241818426c17056a7e6c7e3d45e8df048354"; # "release-25.11";
+    hash = "sha256-AyvSYw1PDb2ls6gh//LRpRTI2/XWqVc+Bp1kjKaqQs8=";
   }) {
     inherit (pkgs) system;
   };
@@ -15,7 +15,6 @@ in
   # manage.
   home.username = builtins.getEnv "USER";
   home.homeDirectory = builtins.getEnv "HOME";
-  home.enableNixpkgsReleaseCheck = false;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -138,7 +137,7 @@ in
 
     direnv = {
       enable = true;
-      package = pkgs_2505.direnv;
+      package = pkgs_direnv_patched.direnv;
       enableBashIntegration = true; # see note on other shells below
       nix-direnv.enable = true;
     };
