@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 let
+  /*
   pkgs_direnv_patched = import (pkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
@@ -9,6 +10,7 @@ let
   }) {
     inherit (pkgs) system;
   };
+  */
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -137,7 +139,6 @@ in
 
     direnv = {
       enable = true;
-      package = pkgs_direnv_patched.direnv;
       enableBashIntegration = true; # see note on other shells below
       nix-direnv.enable = true;
     };
