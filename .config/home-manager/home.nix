@@ -47,9 +47,11 @@ in
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    pkgs.act
     pkgs.android-tools
     pkgs.aria2
     pkgs.arkade
+    pkgs.atuin
     pkgs.awscli2
     pkgs.bazelisk
     pkgs.ccache
