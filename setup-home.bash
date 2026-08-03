@@ -10,8 +10,8 @@ command -v nix || sh <(curl -L https://nixos.org/nix/install) --daemon
 rm -f ~/.bashrc ~/.profile
 
 if ! command -v home-manager ; then
-    nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz home-manager
-    nix-channel --add https://nixos.org/channels/nixos-25.11 nixpkgs
+    nix-channel --add https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz home-manager
+    nix-channel --add https://nixos.org/channels/nixos-26.05 nixpkgs
 
     nix-shell '<home-manager>' -A install
 

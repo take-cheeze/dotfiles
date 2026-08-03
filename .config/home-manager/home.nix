@@ -1,16 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  /*
-  pkgs_direnv_patched = import (pkgs.fetchFromGitHub {
-    owner = "NixOS";
-    repo = "nixpkgs";
-    rev = "5a78241818426c17056a7e6c7e3d45e8df048354"; # "release-25.11";
-    hash = "sha256-AyvSYw1PDb2ls6gh//LRpRTI2/XWqVc+Bp1kjKaqQs8=";
-  }) {
-    inherit (pkgs) system;
-  };
-  */
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -25,7 +15,7 @@ in
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.11"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -67,6 +57,7 @@ in
     pkgs.gh
     pkgs.git
     pkgs.git-lfs
+    pkgs.git-xet
     pkgs.glab
     pkgs.gnupg
     pkgs.go
