@@ -21,6 +21,7 @@ if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ] ; then
 fi
 
 [ -d "$HOME/.anyenv" ] && export PATH="$HOME/.anyenv/bin:$PATH"
+[ -d "$HOME/.pyenv" ] && export PATH="$HOME/.pyenv/bin:$PATH"
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 if [ -e "$HOME/.cargo/env" ] ; then
@@ -29,6 +30,7 @@ elif [ -d "$HOME/.cargo/bin" ] ; then
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
 [ -d /opt/homebrew/bin ] && export PATH=/opt/homebrew/bin:$PATH
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if command -v pyenv 2> /dev/null > /dev/null ; then
