@@ -27,3 +27,15 @@
 	lineNumber = true
 [submodule]
 	fetchJobs = 4
+[credential "https://github.com"]
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !gh auth git-credential
+[safe]
+	directory = /home/takecheeze/dev/ext-pfcomp/pfvm/scripts/static/pytorch
+[lfs]
+	concurrenttransfers = 3
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true
