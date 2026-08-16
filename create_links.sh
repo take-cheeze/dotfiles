@@ -14,6 +14,7 @@ for i in \
     config/nix/nix.conf \
     config/nixpkgs/config.nix \
     config/home-manager/home.nix \
+    config/opencode/opencode.json \
     emacs.d/eww-bookmarks \
     emacs.el \
     folders \
