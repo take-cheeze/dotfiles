@@ -24,6 +24,7 @@ fi
 [ -d "$HOME/.pyenv" ] && export PATH="$HOME/.pyenv/bin:$PATH"
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/.opencode/bin" ] && export PATH="$HOME/.opencode/bin:$PATH"
 if [ -e "$HOME/.cargo/env" ] ; then
     source "$HOME/.cargo/env"
 elif [ -d "$HOME/.cargo/bin" ] ; then
