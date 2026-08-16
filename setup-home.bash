@@ -13,6 +13,7 @@ if ! command -v home-manager ; then
     nix-channel --add https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz home-manager
     nix-channel --add https://nixos.org/channels/nixos-26.05 nixpkgs
 
+    nix-channel --update
     nix-shell '<home-manager>' -A install
 
     set +u
