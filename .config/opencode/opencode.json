@@ -37,6 +37,7 @@
       "pwd *": "allow",
       "time *": "allow",
       "nm *": "allow",
+      "sort *": "allow",
       "pre-commit *": "allow"
     },
     "glob": "allow",
