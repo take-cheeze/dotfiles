@@ -38,10 +38,22 @@
       "time *": "allow",
       "nm *": "allow",
       "sort *": "allow",
+      "which *": "allow",
       "pre-commit *": "allow"
     },
     "glob": "allow",
     "grep": "allow",
     "read": "allow"
+  },
+  "provider": {
+    "opencode-go": {
+      "models": {
+        "deepseek-v4-flash": {
+          "limit": {
+            "context": 262144
+          }
+        }
+      }
+    }
   }
 }
