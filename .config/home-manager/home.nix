@@ -75,6 +75,7 @@ in
     pkgs.pre-commit
     # pkgs.proot
     pkgs.pyenv
+    pkgs.ripgrep
     pkgs.rustup
     pkgs.tea
     pkgs.unar
