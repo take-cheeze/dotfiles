@@ -11,6 +11,7 @@ for i in \
     bazelrc \
     brew-aliases \
     config/direnv/direnvrc \
+    config/mpv/mpv.conf \
     config/nix/nix.conf \
     config/nixpkgs/config.nix \
     config/home-manager/home.nix \
