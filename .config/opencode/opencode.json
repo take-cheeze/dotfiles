@@ -9,6 +9,7 @@
       "*": "ask",
       "cat *": "allow",
       "cd *": "allow",
+      "cmake *": "allow",
       "cut *": "allow",
       "du *": "allow",
       "echo *": "allow",
@@ -40,12 +41,14 @@
       "grep *": "allow",
       "head *": "allow",
       "ls *": "allow",
+      "make *": "allow",
       "nm *": "allow",
       "npm ls *": "allow",
       "npm view *": "allow",
       "pnpm ls *": "allow",
       "pre-commit *": "allow",
       "pwd *": "allow",
+      "readelf *": "allow",
       "rg *": "allow",
       "seq *": "allow",
       "sleep *": "allow",
@@ -66,6 +69,20 @@
         "deepseek-v4-flash": {
           "limit": {
             "output": 65536,
+            "context": 262144
+          }
+        }
+      }
+    },
+    "local": {
+      "options": {
+        "baseURL": "http://takecheeze-nucbox-evo-x2.tailf0b7b1.ts.net:8090",
+        "apiKey": "sk-dummy"
+      },
+      "models": {
+        "qwen3.8": {
+          "limit": {
+            "output": 32000,
             "context": 262144
           }
         }
