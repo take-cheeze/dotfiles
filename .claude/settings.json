@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" || true",
+            "command": "export CLAUDE_TTS_SUMMARY_URL=http://127.0.0.1:11434/v1 CLAUDE_TTS_SUMMARY_MODEL=qwen2.5:3b; [ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --translate || true",
             "timeout": 180,
             "async": true
           }
@@ -29,7 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export CLAUDE_TTS_USER_VOICE=metan CLAUDE_TTS_SUMMARY_URL=http://127.0.0.1:11434/v1 CLAUDE_TTS_SUMMARY_MODEL=qwen2.5:1.5b; [ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --user-prompt || true",
+            "command": "export CLAUDE_TTS_USER_VOICE=metan CLAUDE_TTS_SUMMARY_URL=http://127.0.0.1:11434/v1 CLAUDE_TTS_SUMMARY_MODEL=qwen2.5:3b; [ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --user-prompt || true",
             "timeout": 10
           }
         ]
