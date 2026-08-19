@@ -17,7 +17,7 @@ for i in \
     config/nixpkgs/config.nix \
     config/home-manager/home.nix \
     config/opencode/opencode.json \
-    config/opencode/plugin/zundamon-permission.js \
+    config/opencode/plugin/zundamon-tts.js \
     emacs.d/eww-bookmarks \
     emacs.el \
     folders \
