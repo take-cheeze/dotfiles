@@ -22,6 +22,19 @@
           }
         ]
       }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --text \"確認をお願いするのだ。\" || true",
+            "async": true,
+            "timeout": 60
+          }
+        ]
+      }
     ]
-  }
+  },
+  "remoteControlAtStartup": true
 }
