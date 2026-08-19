@@ -1,15 +1,4 @@
 {
-  "enabledPlugins": {
-    "discord@claude-plugins-official": true
-  },
-  "theme": "auto",
-  "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "voice": {
-    "enabled": true,
-    "mode": "hold"
-  },
   "hooks": {
     "Stop": [
       {
@@ -17,8 +6,8 @@
           {
             "type": "command",
             "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" || true",
-            "async": true,
-            "timeout": 180
+            "timeout": 180,
+            "async": true
           }
         ]
       }
@@ -28,13 +17,36 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --text \"確認をお願いするのだ。\" || true",
-            "async": true,
-            "timeout": 60
+            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --notify || true",
+            "timeout": 60,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export CLAUDE_TTS_USER_VOICE=metan CLAUDE_TTS_SUMMARY_URL=http://127.0.0.1:11434/v1 CLAUDE_TTS_SUMMARY_MODEL=qwen2.5:1.5b; [ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --user-prompt || true",
+            "timeout": 10
           }
         ]
       }
     ]
   },
-  "remoteControlAtStartup": true
+  "enabledPlugins": {
+    "discord@claude-plugins-official": true
+  },
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "theme": "auto",
+  "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true,
+  "model": "sonnet"
 }
