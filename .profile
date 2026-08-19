@@ -51,4 +51,5 @@ export GOPATH="$HOME/dev/go"
 export PATH="$GOPATH/bin:node_modules/.bin:$PATH"
 
 export CLAUDE_TTS_USER_VOICE=metan
+export CLAUDE_TTS_SUMMARY_OPENCODE=1
 export OPENCODE_TTS_USER_VOICE=tsumugi
