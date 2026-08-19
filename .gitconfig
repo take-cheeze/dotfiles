@@ -1,5 +1,5 @@
 [commit]
-	gpgsign = true
+	# gpgsign = true
 [alias]
 	s = status
     d = diff
@@ -28,8 +28,10 @@
 [submodule]
 	fetchJobs = 4
 [credential "https://github.com"]
+	helper = 
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
+	helper = 
 	helper = !gh auth git-credential
 [safe]
 	directory = /home/takecheeze/dev/ext-pfcomp/pfvm/scripts/static/pytorch
