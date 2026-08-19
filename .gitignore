@@ -25,3 +25,10 @@ result
 *.sqlite
 
 **/.claude/settings.local.json
+
+# ~/.claude holds far more than settings: prompt history, full session
+# transcripts, cached credentials and channel tokens. create_links.sh links
+# .claude/settings.json only -- these keep the rest out if anything is ever
+# copied in wholesale.
+.claude/*
+!.claude/settings.json

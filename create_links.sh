@@ -10,6 +10,7 @@ for i in \
     bashrc \
     bazelrc \
     brew-aliases \
+    claude/settings.json \
     config/direnv/direnvrc \
     config/mpv/mpv.conf \
     config/nix/nix.conf \

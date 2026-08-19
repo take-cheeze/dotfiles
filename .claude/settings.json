@@ -1,0 +1,27 @@
+{
+  "enabledPlugins": {
+    "discord@claude-plugins-official": true
+  },
+  "theme": "auto",
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" || true",
+            "async": true,
+            "timeout": 180
+          }
+        ]
+      }
+    ]
+  }
+}
