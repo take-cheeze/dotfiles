@@ -7,6 +7,7 @@
     "todowrite": "allow",
     "bash": {
       "*": "ask",
+      "basename *": "allow",
       "cat *": "allow",
       "cd *": "allow",
       "cmake *": "allow",
