@@ -83,7 +83,7 @@ in
     pkgs.unrar
     pkgs.uv
     pkgs.valkey
-    pkgs.verilator
+    # pkgs.verilator
     pkgs.wget
     pkgs.yt-dlp
     pkgs.zulu
