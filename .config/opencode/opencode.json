@@ -89,5 +89,8 @@
         }
       }
     }
-  }
+  },
+  "plugin": [
+    "opencode-tts"
+  ]
 }
