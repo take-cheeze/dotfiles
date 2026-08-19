@@ -49,3 +49,6 @@ command -v krew 2>/dev/null >/dev/null && export PATH="${KREW_ROOT:-$HOME/.krew}
 
 export GOPATH="$HOME/dev/go"
 export PATH="$GOPATH/bin:node_modules/.bin:$PATH"
+
+export CLAUDE_TTS_USER_VOICE=metan
+export OPENCODE_TTS_USER_VOICE=tsumugi
