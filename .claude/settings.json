@@ -1,11 +1,15 @@
 {
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "sonnet",
   "hooks": {
     "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "export CLAUDE_TTS_SUMMARY_URL=http://127.0.0.1:11434/v1 CLAUDE_TTS_SUMMARY_MODEL=qwen2.5:3b; [ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --translate || true",
+            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --translate || true",
             "timeout": 180,
             "async": true
           }
@@ -29,10 +33,23 @@
         "hooks": [
           {
             "type": "command",
-            "command": "export CLAUDE_TTS_USER_VOICE=metan CLAUDE_TTS_SUMMARY_URL=http://127.0.0.1:11434/v1 CLAUDE_TTS_SUMMARY_MODEL=qwen2.5:3b; [ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --user-prompt || true",
+            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --user-prompt || true",
             "timeout": 10
           }
         ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --notify || true",
+            "timeout": 60,
+            "async": true
+          }
+        ],
+        "matcher": "ExitPlanMode"
       }
     ]
   },
@@ -47,6 +64,5 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "model": "sonnet"
+  "voiceEnabled": true
 }
