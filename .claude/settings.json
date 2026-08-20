@@ -38,6 +38,19 @@
           }
         ]
       }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --notify || true",
+            "timeout": 60,
+            "async": true
+          }
+        ],
+        "matcher": "ExitPlanMode"
+      }
     ]
   },
   "enabledPlugins": {
