@@ -37,6 +37,8 @@
       "git log *": "allow",
       "git ls-files *": "allow",
       "git reflog *": "allow",
+      "git remote remove *": "ask",
+      "git remote *": "allow",
       "git rev-list *": "allow",
       "git rev-parse *": "allow",
       "git show *": "allow",
