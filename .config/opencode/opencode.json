@@ -12,6 +12,7 @@
       "cd *": "allow",
       "cmake *": "allow",
       "cut *": "allow",
+      "date *": "allow",
       "du *": "allow",
       "echo *": "allow",
       "ffprobe *": "allow",
@@ -41,6 +42,7 @@
       "git status *": "allow",
       "grep *": "allow",
       "head *": "allow",
+      "journalctl *": "allow",
       "ls *": "allow",
       "lsusb *": "allow",
       "make *": "allow",
@@ -83,6 +85,12 @@
       },
       "models": {
         "qwen3.8": {
+          "limit": {
+            "output": 32000,
+            "context": 262144
+          }
+        },
+        "ornith-1.5-35b-a3b-q6k": {
           "limit": {
             "output": 32000,
             "context": 262144
