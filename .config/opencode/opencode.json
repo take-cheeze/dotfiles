@@ -42,6 +42,7 @@
       "grep *": "allow",
       "head *": "allow",
       "ls *": "allow",
+      "lsusb *": "allow",
       "make *": "allow",
       "nm *": "allow",
       "npm ls *": "allow",
