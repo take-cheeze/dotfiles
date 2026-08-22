@@ -26,6 +26,9 @@ for i in \
     gitconfig \
     gitignore \
     git_template \
+    local/bin/claude-tts-speak \
+    local/bin/claude-tts-speakd \
+    local/bin/opencode-tts-dispatch \
     profile \
     pythonrc.py \
     ssh/rc \
