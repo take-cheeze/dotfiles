@@ -52,8 +52,7 @@ export PATH="$GOPATH/bin:node_modules/.bin:$PATH"
 
 export CLAUDE_TTS_USER_VOICE=metan
 export CLAUDE_TTS_SUMMARY_OPENCODE=1
+export CLAUDE_TTS_FORWARD=https://m4-macmini.tailf0b7b1.ts.net
 export OPENCODE_TTS_USER_VOICE=tsumugi
-# Match the Claude Code Stop hook (claude-tts-speak --translate): translate
-# opencode's own assistant replies to Japanese too, instead of speaking
-# English through voiceger's single voice.
 export OPENCODE_TTS_TRANSLATE_REPLIES=1
+export TTS_FORWARD=https://m4-macmini.tailf0b7b1.ts.net

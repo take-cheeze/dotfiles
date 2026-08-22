@@ -7,6 +7,7 @@
     "todowrite": "allow",
     "bash": {
       "*": "ask",
+      "awk *": "allow",
       "basename *": "allow",
       "cat *": "allow",
       "cd *": "allow",
@@ -53,8 +54,10 @@
       "nm *": "allow",
       "npm ls *": "allow",
       "npm view *": "allow",
+      "pgrep *": "allow",
       "pnpm ls *": "allow",
       "pre-commit *": "allow",
+      "printf *": "allow",
       "pwd *": "allow",
       "readelf *": "allow",
       "rg *": "allow",
