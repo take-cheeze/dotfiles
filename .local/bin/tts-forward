@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# tts-forward — edge_tts CLI lookalike backed by https://tts-tts-ingress.tailf0b7b1.ts.net
+#
+# Accepts the flags the opencode-tts plugin passes its "edge_tts" backend:
+#   --text T --write-media OUT --voice V --rate R --volume P
+# and synthesizes on the https://tts-tts-ingress.tailf0b7b1.ts.net server instead of locally, so no
+# models are needed on this machine. Install (see /install):
+#
+#   curl -fsSL https://tts-tts-ingress.tailf0b7b1.ts.net/install/tts-forward -o ~/.local/bin/tts-forward
+#   chmod +x ~/.local/bin/tts-forward
+#
+# then point opencode-tts's edge_tts.command at ~/.local/bin/tts-forward.
+# TTS_SERVER_URL overrides the baked-in server URL; VOICEVOX_VOICE overrides
+# --voice, exactly like the local shim.
+set -euo pipefail
+
+SERVER_URL="${TTS_SERVER_URL:-https://tts-tts-ingress.tailf0b7b1.ts.net}"
+VOICE_DEFAULT="zundamon:normal"
+
+text="" out="" rate=""
+voice="${VOICEVOX_VOICE:-}"
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --text) text="${2:-}"; shift 2 ;;
+    --write-media) out="${2:-}"; shift 2 ;;
+    --voice) voice="${2:-}"; shift 2 ;;
+    --rate) rate="${2:-}"; shift 2 ;;
+    --volume) shift 2 ;;          # accepted for compatibility, ignored
+    --list-voices)
+      echo "Voices live on $SERVER_URL — see $SERVER_URL/install"
+      exit 0 ;;
+    *) echo "tts-forward: ignoring unknown flag $1" >&2; shift ;;
+  esac
+done
+
+[ -n "$text" ] || { echo "tts-forward: no --text" >&2; exit 2; }
+[ -n "$out" ] || { echo "tts-forward: no --write-media" >&2; exit 2; }
+[ -n "$voice" ] || voice="$VOICE_DEFAULT"
+
+url="$SERVER_URL/api/tts?voice=$voice"
+if [ -n "$rate" ]; then
+  rate="${rate%%%}"   # "+25%" -> "+25"
+  rate="${rate#+}"    # "+25" -> "25"
+  url="$url&rate=$rate"
+fi
+
+tmp="$(mktemp "${TMPDIR:-/tmp}/tts-forward.XXXXXX")"
+trap 'rm -f "$tmp"' EXIT
+
+curl -fsS -m 600 -X POST \
+  -H 'Content-Type: text/plain' \
+  --data-binary "$text" \
+  -o "$tmp" "$url"
+
+mv "$tmp" "$out"
