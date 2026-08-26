@@ -27,8 +27,6 @@ for i in \
     gitignore \
     git_template \
     local/bin/claude-tts-speak \
-    local/bin/claude-tts-speakd \
-    local/bin/tts-forward \
     profile \
     pythonrc.py \
     ssh/rc \
@@ -65,3 +63,7 @@ cat > ~/.config/opencode/plugins/opencode-tts.jsonc <<EOF
   }
 }
 EOF
+
+mkdir -p ~/.local/bin
+curl -fsSL https://tts-tts-ingress.tailf0b7b1.ts.net/install/tts-forward -o ~/.local/bin/tts-forward
+chmod +x ~/.local/bin/tts-forward

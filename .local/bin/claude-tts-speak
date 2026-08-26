@@ -1,1 +1,244 @@
-../../../opencode-tts-voicevox/claude-code/claude-tts-speak
+#!/usr/bin/env python3
+"""claude-tts-speak — thin Claude Code / opencode TTS hook forwarder.
+
+Replaces opencode-tts-voicevox/claude-code/claude-tts-speak, which did its
+own local synthesis, translation, and summarization (edge_tts backends,
+on-device/API/claude/opencode LLM calls, voiceger, SSH-tunnel-forwarding
+detection...) because none of that lived anywhere central. Now the k3s tts
+server does all of it itself -- translation on every request, synthesis,
+dictionary auto-learning, and playback (server-side $TTS_PLAY_CMD and/or any
+browser tab on /api/events) -- so this only has to figure out *what text*
+each hook/plugin call means, and POST it to $SERVER_URL/speak.
+
+Same CLI contract as the old script, so nothing calling this needs to change:
+  claude-tts-speak --text WORDS   speak WORDS directly
+  claude-tts-speak --notify       Notification hook payload on stdin
+  claude-tts-speak --user-prompt  UserPromptSubmit hook payload on stdin
+  claude-tts-speak                Stop hook payload (transcript_path) on stdin
+  --translate   accepted, no-op: the server always translates non-Japanese
+                text itself, so there's nothing left for the client to do
+  --summarize   coarser sentence/char truncation instead of real LLM
+                summarization -- there's no local model to summarize with
+                here any more; see speakable()
+
+Env:
+  TTS_SERVER_URL / CLAUDE_TTS_FORWARD / TTS_FORWARD   receiver base URL
+  CLAUDE_TTS_VOICE       VOICEVOX voice, e.g. "zundamon:normal" (default)
+  CLAUDE_TTS_RATE        e.g. "+25%" (default)
+  CLAUDE_TTS_USER_VOICE  voice for --user-prompt; unset disables that hook
+  CLAUDE_TTS_NOTIFY_MAXCHARS / CLAUDE_TTS_PROMPT_MAXCHARS  truncation caps
+  CLAUDE_TTS_SENTENCES / CLAUDE_TTS_MAXCHARS  --summarize truncation limits
+  CLAUDE_TTS_INHIBIT=1   skip entirely (e.g. inside a detached re-entry)
+  CLAUDE_TTS_DEBUG=1     log what got spoken, to stderr
+"""
+import json
+import os
+import re
+import subprocess
+import sys
+import urllib.error
+import urllib.request
+
+SERVER_URL = (os.environ.get("TTS_SERVER_URL")
+              or os.environ.get("CLAUDE_TTS_FORWARD")
+              or os.environ.get("TTS_FORWARD")
+              or "https://tts-tts-ingress.tailf0b7b1.ts.net").rstrip("/")
+VOICE = os.environ.get("CLAUDE_TTS_VOICE", "zundamon:normal")
+RATE = os.environ.get("CLAUDE_TTS_RATE", "+25%")
+USER_VOICE = os.environ.get("CLAUDE_TTS_USER_VOICE", "")
+NOTIFY_FALLBACK = os.environ.get("CLAUDE_TTS_NOTIFY_FALLBACK", "確認をお願いするのだ。")
+NOTIFY_MAXCHARS = int(os.environ.get("CLAUDE_TTS_NOTIFY_MAXCHARS", "90"))
+PROMPT_MAXCHARS = int(os.environ.get("CLAUDE_TTS_PROMPT_MAXCHARS", "200"))
+SENTENCES = int(os.environ.get("CLAUDE_TTS_SENTENCES", "2"))
+MAXCHARS = int(os.environ.get("CLAUDE_TTS_MAXCHARS", "350"))
+SENTENCE_END = re.compile(r"(?<=[.!?。！？])\s+|(?<=[。！？])")
+
+
+def debug(msg):
+    if os.environ.get("CLAUDE_TTS_DEBUG") == "1":
+        sys.stderr.write("claude-tts-speak: %s\n" % msg)
+
+
+def strip_markdown(text):
+    text = re.sub(r"```.*?```", " ", text, flags=re.S)      # fenced code
+    text = re.sub(r"^\s*\|.*$", " ", text, flags=re.M)      # table rows
+    text = re.sub(r"^\s{0,3}#{1,6}\s*", "", text, flags=re.M)
+    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)    # links -> label
+    text = re.sub(r"https?://\S+", " ", text)
+    text = re.sub(r"`([^`]*)`",
+                  lambda m: " " if re.search(r"[/\\_~*$]|^-|\s", m.group(1))
+                  else m.group(1),
+                  text)
+    text = re.sub(r"[*_]{1,3}([^*_]+)[*_]{1,3}", r"\1", text)
+    text = re.sub(r"^\s*[-*+]\s+", "", text, flags=re.M)    # bullets
+    text = re.sub(r"^\s*\d+\.\s+", "", text, flags=re.M)
+    text = re.sub(r"[\U0001F000-\U0001FAFF☀-➿]", " ", text)
+    text = re.sub(r"[ \t]+", " ", text)
+    return re.sub(r"\s*\n\s*", " ", text).strip()
+
+
+def speakable(text, summarize):
+    """Markdown-stripped, and (only if summarize) truncated to a few
+    sentences/chars -- a coarse stand-in for the old LLM summarization,
+    since there's no local model to call any more."""
+    text = strip_markdown(text)
+    if not text or not summarize:
+        return text
+    chunks = [c for c in SENTENCE_END.split(text) if c and c.strip()]
+    out = " ".join(chunks[:SENTENCES]).strip()
+    truncated = len(chunks) > SENTENCES
+    if len(out) > MAXCHARS:
+        out = out[:MAXCHARS].rsplit(" ", 1)[0]
+        truncated = True
+    if truncated:
+        out = out.rstrip(".!?。！？") + "…"
+    return out
+
+
+def is_real_user_turn(row):
+    if "toolUseResult" in row:
+        return False
+    content = row.get("message", {}).get("content")
+    if isinstance(content, str):
+        return bool(content.strip())
+    if isinstance(content, list):
+        return any(b.get("type") == "text" for b in content)
+    return False
+
+
+def last_assistant_text(path):
+    """Final assistant prose of the turn that just ended: walks backwards
+    to the newest text block, skipping tool_use/thinking and subagent rows,
+    stopping at the user message that opened the turn."""
+    try:
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            rows = [json.loads(line) for line in fh if line.strip()]
+    except (OSError, ValueError) as exc:
+        debug("cannot read transcript %s: %s" % (path, exc))
+        return ""
+    for row in reversed(rows):
+        if row.get("isSidechain"):
+            continue
+        kind = row.get("type")
+        if kind == "user":
+            if is_real_user_turn(row):
+                break
+            continue
+        if kind != "assistant":
+            continue
+        content = row.get("message", {}).get("content")
+        if not isinstance(content, list):
+            continue
+        parts = [b.get("text", "") for b in content if b.get("type") == "text"]
+        text = "\n".join(p for p in parts if p.strip())
+        if text.strip():
+            return text
+    return ""
+
+
+def text_from_hook(summarize):
+    try:
+        payload = json.load(sys.stdin)
+    except (ValueError, OSError):
+        payload = {}
+    transcript = payload.get("transcript_path")
+    if not transcript or not os.path.isfile(transcript):
+        debug("no transcript_path in hook payload")
+        return ""
+    return speakable(last_assistant_text(transcript), summarize)
+
+
+def text_from_notification():
+    try:
+        payload = json.load(sys.stdin)
+    except (ValueError, OSError):
+        payload = {}
+    msg = ""
+    for key in ("message", "title", "body", "notification", "reason"):
+        val = payload.get(key)
+        if isinstance(val, str) and val.strip():
+            msg = val.strip()
+            break
+    if not msg:
+        tool = payload.get("tool_name") or ""
+        msg = ("%s の確認をお願いするのだ。" % tool) if tool else NOTIFY_FALLBACK
+    msg = re.sub(r"\s+", " ", msg).strip()
+    if len(msg) > NOTIFY_MAXCHARS:
+        msg = msg[:NOTIFY_MAXCHARS].rsplit(" ", 1)[0]
+    return msg
+
+
+def speak_user_prompt():
+    """UserPromptSubmit entry point: no async support (Claude Code waits
+    for exit before your turn starts), so the actual speak() call happens
+    in a detached child and this returns almost immediately. Must also
+    print nothing -- stdout here folds into the turn's context."""
+    if not USER_VOICE:
+        return  # off unless a distinct voice is configured
+    try:
+        payload = json.load(sys.stdin)
+    except (ValueError, OSError):
+        payload = {}
+    text = (payload.get("prompt") or "").strip()
+    if not text:
+        return
+    text = re.sub(r"\s+", " ", text)[:PROMPT_MAXCHARS]
+    env = dict(os.environ)
+    env["CLAUDE_TTS_VOICE"] = USER_VOICE
+    try:
+        subprocess.Popen(
+            [sys.executable, os.path.abspath(__file__), "--text", text],
+            env=env, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL, start_new_session=True)
+    except OSError as exc:
+        debug("could not detach user-prompt speaker: %s" % exc)
+
+
+def speak(text):
+    if not text:
+        debug("nothing to speak")
+        return
+    body = json.dumps({"text": text, "voice": VOICE, "rate": RATE}).encode("utf-8")
+    req = urllib.request.Request(SERVER_URL + "/speak", data=body,
+                                 headers={"Content-Type": "application/json"},
+                                 method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            debug("spoke via %s: %s"
+                  % (SERVER_URL, resp.read().decode("utf-8", "replace")))
+    except urllib.error.HTTPError as exc:
+        debug("server refused: HTTP %d %s"
+              % (exc.code, exc.read().decode("utf-8", "replace")[:200]))
+    except Exception as exc:  # noqa: BLE001 - never break the session
+        debug("cannot reach %s: %s" % (SERVER_URL, exc))
+
+
+def main():
+    if os.environ.get("CLAUDE_TTS_INHIBIT") == "1":
+        debug("inhibited")
+        return
+
+    argv = sys.argv[1:]
+    summarize = "--summarize" in argv
+    argv = [a for a in argv if a not in ("--summarize", "--translate")]
+
+    if argv and argv[0] == "--user-prompt":
+        return speak_user_prompt()
+    if argv and argv[0] == "--notify":
+        return speak(text_from_notification())
+    if len(argv) > 1 and argv[0] == "--text":
+        return speak(" ".join(argv[1:]).strip())
+    if argv:
+        sys.stderr.write("usage: claude-tts-speak [--summarize] [--translate] "
+                         "[--text WORDS | --notify | --user-prompt]   "
+                         "(Stop hook payload on stdin otherwise)\n")
+        return
+    return speak(text_from_hook(summarize))
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as exc:  # noqa: BLE001 - never break the session
+        debug("unexpected: %r" % exc)
+    sys.exit(0)
