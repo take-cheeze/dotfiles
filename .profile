@@ -52,7 +52,7 @@ export PATH="$GOPATH/bin:node_modules/.bin:$PATH"
 
 export CLAUDE_TTS_USER_VOICE=metan
 export CLAUDE_TTS_SUMMARY_OPENCODE=1
-export CLAUDE_TTS_FORWARD=https://m4-macmini.tailf0b7b1.ts.net
+export CLAUDE_TTS_FORWARD=https://tts-tts-ingress.tailf0b7b1.ts.net
 export OPENCODE_TTS_USER_VOICE=tsumugi
 export OPENCODE_TTS_TRANSLATE_REPLIES=1
-export TTS_FORWARD=https://m4-macmini.tailf0b7b1.ts.net
+export TTS_FORWARD=https://tts-tts-ingress.tailf0b7b1.ts.net
