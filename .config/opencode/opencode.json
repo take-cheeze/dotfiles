@@ -58,6 +58,7 @@
       "pnpm ls *": "allow",
       "pre-commit *": "allow",
       "printf *": "allow",
+      "ps *": "allow",
       "pwd *": "allow",
       "readelf *": "allow",
       "rg *": "allow",
@@ -71,6 +72,7 @@
       "tail *": "allow",
       "time *": "allow",
       "tr *": "allow",
+      "uptime *": "allow",
       "wc *": "allow",
       "which *": "allow"
     },
