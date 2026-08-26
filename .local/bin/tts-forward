@@ -12,10 +12,24 @@
 # then point opencode-tts's edge_tts.command at ~/.local/bin/tts-forward.
 # TTS_SERVER_URL overrides the baked-in server URL; VOICEVOX_VOICE overrides
 # --voice, exactly like the local shim.
+#
+# TTS_FORWARD_MODE (matches opencode-tts-dispatch's env var of the same
+# name/meaning):
+#   synth (default)  fetch the WAV from /api/tts; the caller (opencode-tts)
+#                     plays --write-media itself via afplay/ffplay/mpg123.
+#   speak             hit /speak instead -- the server plays it server-side
+#                     ($TTS_PLAY_CMD) and/or pushes it to any browser tab
+#                     listening on /api/events; --write-media gets a silent
+#                     stub so the caller's own playback attempt is a no-op.
+#                     Use this when the machine running opencode has no
+#                     audio device of its own.
 set -euo pipefail
 
 SERVER_URL="${TTS_SERVER_URL:-https://tts-tts-ingress.tailf0b7b1.ts.net}"
+FORWARD_MODE="${TTS_FORWARD_MODE:-synth}"
 VOICE_DEFAULT="zundamon:normal"
+# 44-byte silent WAV (0 data bytes) -- see FORWARD_MODE=speak above.
+SILENT_WAV='\x52\x49\x46\x46\x24\x00\x00\x00\x57\x41\x56\x45\x66\x6d\x74\x20\x10\x00\x00\x00\x01\x00\x01\x00\x40\x1f\x00\x00\x40\x1f\x00\x00\x01\x00\x08\x00\x64\x61\x74\x61\x00\x00\x00\x00'
 
 text="" out="" rate=""
 voice="${VOICEVOX_VOICE:-}"
@@ -38,19 +52,28 @@ done
 [ -n "$out" ] || { echo "tts-forward: no --write-media" >&2; exit 2; }
 [ -n "$voice" ] || voice="$VOICE_DEFAULT"
 
-url="$SERVER_URL/api/tts?voice=$voice"
 if [ -n "$rate" ]; then
   rate="${rate%%%}"   # "+25%" -> "+25"
   rate="${rate#+}"    # "+25" -> "25"
-  url="$url&rate=$rate"
 fi
 
 tmp="$(mktemp "${TMPDIR:-/tmp}/tts-forward.XXXXXX")"
 trap 'rm -f "$tmp"' EXIT
 
-curl -fsS -m 600 -X POST \
-  -H 'Content-Type: text/plain' \
-  --data-binary "$text" \
-  -o "$tmp" "$url"
+if [ "$FORWARD_MODE" = "speak" ]; then
+  curl -fsS -m 600 -G "$SERVER_URL/speak" \
+    --data-urlencode "text=$text" \
+    --data-urlencode "voice=$voice" \
+    ${rate:+--data-urlencode "rate=$rate"} \
+    -o /dev/null
+  printf "$SILENT_WAV" > "$tmp"
+else
+  url="$SERVER_URL/api/tts?voice=$voice"
+  [ -n "$rate" ] && url="$url&rate=$rate"
+  curl -fsS -m 600 -X POST \
+    -H 'Content-Type: text/plain' \
+    --data-binary "$text" \
+    -o "$tmp" "$url"
+fi
 
 mv "$tmp" "$out"
