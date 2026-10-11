@@ -24,7 +24,6 @@ fi
 [ -d "$HOME/.pyenv" ] && export PATH="$HOME/.pyenv/bin:$PATH"
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
-[ -d "$HOME/.opencode/bin" ] && export PATH="$HOME/.opencode/bin:$PATH"
 if [ -e "$HOME/.cargo/env" ] ; then
     source "$HOME/.cargo/env"
 elif [ -d "$HOME/.cargo/bin" ] ; then
@@ -49,6 +48,3 @@ command -v krew 2>/dev/null >/dev/null && export PATH="${KREW_ROOT:-$HOME/.krew}
 
 export GOPATH="$HOME/dev/go"
 export PATH="$GOPATH/bin:node_modules/.bin:$PATH"
-
-export TTS_FORWARD_MODE=speak
-export TTS_FORWARD=https://tts-tts-ingress.tailf0b7b1.ts.net

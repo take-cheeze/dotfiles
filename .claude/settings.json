@@ -4,54 +4,6 @@
   },
   "model": "sonnet",
   "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --translate || true",
-            "timeout": 180,
-            "async": true
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --notify || true",
-            "timeout": 60,
-            "async": true
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --user-prompt || true",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/claude-tts-speak\" ] && \"$HOME/.local/bin/claude-tts-speak\" --notify || true",
-            "timeout": 60,
-            "async": true
-          }
-        ],
-        "matcher": "ExitPlanMode"
-      }
-    ]
   },
   "enabledPlugins": {
     "discord@claude-plugins-official": true
