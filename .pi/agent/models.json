@@ -1,0 +1,22 @@
+{
+  "providers": {
+    "tailnet-llama": {
+      "baseUrl": "http://takecheeze-system-product-name.tailf0b7b1.ts.net:8080/v1",
+      "api": "openai-completions",
+      "apiKey": "sk-dummy",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false
+      },
+      "models": [
+        {
+          "id": "gemma-4-26b-a4b",
+          "name": "Gemma 4 26B-A4B (Intel B60, Tailscale)",
+          "input": ["text"],
+          "contextWindow": 262144,
+          "maxTokens": 16384
+        }
+      ]
+    }
+  }
+}

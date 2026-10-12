@@ -24,6 +24,7 @@ for i in \
     gitconfig \
     gitignore \
     git_template \
+    pi/agent/models.json \
     profile \
     pythonrc.py \
     ssh/rc \
